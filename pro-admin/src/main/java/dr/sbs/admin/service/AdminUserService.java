@@ -1,11 +1,12 @@
 package dr.sbs.admin.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.admin.dto.AdminUpdatePasswordParam;
 import dr.sbs.admin.dto.AdminUserParam;
-import dr.sbs.mbg.model.AdminMenu;
-import dr.sbs.mbg.model.AdminResource;
-import dr.sbs.mbg.model.AdminRole;
-import dr.sbs.mbg.model.AdminUser;
+import dr.sbs.mp.entity.AdminMenu;
+import dr.sbs.mp.entity.AdminResource;
+import dr.sbs.mp.entity.AdminRole;
+import dr.sbs.mp.entity.AdminUser;
 import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface AdminUserService {
   /** 根据用户名获取后台管理员 */
   AdminUser getUserByUsername(String username);
-
-  /** 缓存序列化后会没有password */
-  AdminUser getUserByUsernameRaw(String username);
 
   /** 注册功能 */
   AdminUser register(AdminUserParam adminUserParam);
@@ -41,17 +39,17 @@ public interface AdminUserService {
   AdminUser getItem(Long id);
 
   /** 根据用户名或昵称分页查询用户 */
-  List<AdminUser> list(String keyword, Integer pageSize, Integer pageNum);
+  Page<AdminUser> list(String keyword, Integer pageSize, Integer pageNum);
 
   /** 修改指定用户信息 */
-  int update(Long id, AdminUser adminUser);
+  boolean update(Long id, AdminUser adminUser);
 
   /** 删除指定用户 */
-  int delete(Long id);
+  boolean delete(Long id);
 
   /** 修改用户角色关系 */
   @Transactional
-  int updateRole(Long userId, List<Long> roleIds);
+  boolean updateRole(Long userId, List<Long> roleIds);
 
   /** 获取用户对于角色 */
   List<AdminRole> getRoleList(Long userId);
@@ -67,7 +65,4 @@ public interface AdminUserService {
 
   /** 获取用户信息 */
   UserDetails loadUserDetailsByUsername(String username);
-
-  /** 缓存序列化后会没有password */
-  UserDetails loadUserDetailsByUsernameRaw(String username);
 }

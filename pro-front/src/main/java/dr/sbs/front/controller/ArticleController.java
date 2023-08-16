@@ -1,16 +1,16 @@
 package dr.sbs.front.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.common.CommonPage;
 import dr.sbs.common.CommonResult;
 import dr.sbs.front.dto.ArticleCreateParam;
 import dr.sbs.front.service.ArticleService;
 import dr.sbs.front.service.UserService;
-import dr.sbs.mbg.model.Article;
-import dr.sbs.mbg.model.FrontUser;
+import dr.sbs.mp.entity.Article;
+import dr.sbs.mp.entity.FrontUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -39,9 +39,9 @@ public class ArticleController {
       return CommonResult.unauthorized("Not Logged-in");
     }
 
-    int count = articleService.create(articleCreateParam);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = articleService.create(articleCreateParam);
+    if (result) {
+      return CommonResult.success(1);
     }
     return CommonResult.failed();
   }
@@ -63,9 +63,9 @@ public class ArticleController {
       return CommonResult.forbidden("No privileges");
     }
 
-    int count = articleService.update(id, articleCreateParam);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = articleService.update(id, articleCreateParam);
+    if (result) {
+      return CommonResult.success(1);
     }
     return CommonResult.failed();
   }
@@ -84,9 +84,9 @@ public class ArticleController {
       return CommonResult.forbidden("No privileges");
     }
 
-    int count = articleService.delete(id);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = articleService.delete(id);
+    if (result) {
+      return CommonResult.success(1);
     }
     return CommonResult.failed();
   }
@@ -104,7 +104,7 @@ public class ArticleController {
       @RequestParam(value = "searchKey", defaultValue = "")
           @ApiParam(value = "搜索关键字", defaultValue = "")
           String searchKey) {
-    List<Article> queryList = articleService.list(searchKey, pageSize, pageNum);
+    Page<Article> queryList = articleService.list(searchKey, pageSize, pageNum);
     return CommonResult.success(CommonPage.toPage(queryList));
   }
 

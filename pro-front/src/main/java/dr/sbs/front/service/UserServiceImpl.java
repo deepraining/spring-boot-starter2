@@ -1,14 +1,13 @@
 package dr.sbs.front.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import dr.sbs.common.exception.ApiAssert;
 import dr.sbs.common.util.UuidUtil;
 import dr.sbs.front.bo.UserInfo;
 import dr.sbs.front.dto.UpdatePasswordParam;
 import dr.sbs.front.dto.UserCreateParam;
-import dr.sbs.mbg.mapper.FrontUserMapper;
-import dr.sbs.mbg.model.FrontUser;
-import dr.sbs.mbg.model.FrontUserExample;
-import java.util.List;
+import dr.sbs.mp.entity.FrontUser;
+import dr.sbs.mp.service.FrontUserMpService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -20,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-  @Autowired private FrontUserMapper userMapper;
+  @Autowired private FrontUserMpService userMpService;
   @Autowired private PasswordEncoder passwordEncoder;
   @Autowired private UserCacheService userCacheService;
 
@@ -29,11 +28,10 @@ public class UserServiceImpl implements UserService {
     FrontUser user = userCacheService.getUserByUsername(username);
     if (user != null) return user;
 
-    FrontUserExample example = new FrontUserExample();
-    example.createCriteria().andUsernameEqualTo(username);
-    List<FrontUser> users = userMapper.selectByExample(example);
-    if (users.size() > 0) {
-      user = users.get(0);
+    QueryWrapper<FrontUser> queryWrapper = new QueryWrapper<>();
+    queryWrapper.eq("username", username);
+    user = userMpService.getOne(queryWrapper);
+    if (user != null) {
       userCacheService.setUser(user);
       userCacheService.setUserByUsername(user);
       return user;
@@ -46,7 +44,7 @@ public class UserServiceImpl implements UserService {
     FrontUser user = userCacheService.getUser(id);
     if (user != null) return user;
 
-    user = userMapper.selectByPrimaryKey(id);
+    user = userMpService.getById(id);
     if (user != null) {
       userCacheService.setUser(user);
       userCacheService.setUserByUsername(user);
@@ -59,25 +57,25 @@ public class UserServiceImpl implements UserService {
   public FrontUser register(UserCreateParam userCreateParam) {
     // check if the username existed
     String username = userCreateParam.getUsername();
-    FrontUserExample example = new FrontUserExample();
-    example.createCriteria().andUsernameEqualTo(username);
-    List<FrontUser> users = userMapper.selectByExample(example);
-    if (users.size() > 0) {
+    QueryWrapper<FrontUser> queryWrapper = new QueryWrapper<>();
+    queryWrapper.eq("username", username);
+    FrontUser user = userMpService.getOne(queryWrapper);
+    if (user != null) {
       ApiAssert.fail("Username '" + username + "' existed.");
     }
 
     // Add the user
-    FrontUser user = new FrontUser();
+    user = new FrontUser();
     BeanUtils.copyProperties(userCreateParam, user);
     user.setId(UuidUtil.nextId());
     user.setUsername(username);
     user.setPassword(passwordEncoder.encode(userCreateParam.getPassword()));
-    userMapper.insertSelective(user);
+    userMpService.save(user);
     return user;
   }
 
   @Override
-  public Integer updatePassword(UpdatePasswordParam updatePasswordParam) {
+  public boolean updatePassword(UpdatePasswordParam updatePasswordParam) {
     FrontUser user = getCurrentUser();
     if (user == null) ApiAssert.fail("未登录");
 
@@ -88,12 +86,12 @@ public class UserServiceImpl implements UserService {
     FrontUser updateUser = new FrontUser();
     updateUser.setId(user.getId());
     updateUser.setPassword(passwordEncoder.encode(updatePasswordParam.getNewPassword()));
-    int count = userMapper.updateByPrimaryKeySelective(updateUser);
+    boolean result = userMpService.updateById(updateUser);
 
     userCacheService.delUser(user.getId());
     userCacheService.delUserByUsername(user.getUsername());
 
-    return count;
+    return result;
   }
 
   @Override

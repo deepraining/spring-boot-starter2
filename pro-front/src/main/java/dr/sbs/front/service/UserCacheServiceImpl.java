@@ -2,9 +2,7 @@ package dr.sbs.front.service;
 
 import dr.sbs.common.util.SbsCacheKey;
 import dr.sbs.common.util.SbsCacheKeyUtil;
-import dr.sbs.front.dto.CacheIntermedFrontUser;
-import dr.sbs.mbg.model.FrontUser;
-import org.springframework.beans.BeanUtils;
+import dr.sbs.mp.entity.FrontUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,26 +15,14 @@ public class UserCacheServiceImpl implements UserCacheService {
   public FrontUser getUser(Long userId) {
     String cacheKey = SbsCacheKeyUtil.getFrontDbKey(SbsCacheKey.FRONT_USER, userId);
 
-    CacheIntermedFrontUser cacheIntermedFrontUser =
-        (CacheIntermedFrontUser) redisService.get(cacheKey);
-    if (cacheIntermedFrontUser == null) return null;
-
-    FrontUser frontUser = new FrontUser();
-    BeanUtils.copyProperties(cacheIntermedFrontUser, frontUser, "internalPassword");
-    frontUser.setPassword(cacheIntermedFrontUser.getInternalPassword());
-
-    return frontUser;
+    return (FrontUser) redisService.get(cacheKey);
   }
 
   @Override
   public void setUser(FrontUser frontUser) {
     String cacheKey = SbsCacheKeyUtil.getFrontDbKey(SbsCacheKey.FRONT_USER, frontUser.getId());
 
-    CacheIntermedFrontUser cacheIntermedFrontUser = new CacheIntermedFrontUser();
-    BeanUtils.copyProperties(frontUser, cacheIntermedFrontUser);
-    cacheIntermedFrontUser.setInternalPassword(cacheIntermedFrontUser.getPassword());
-
-    redisService.set(cacheKey, cacheIntermedFrontUser, SbsCacheKeyUtil.TWO_WEEKS);
+    redisService.set(cacheKey, frontUser, SbsCacheKeyUtil.TWO_WEEKS);
   }
 
   @Override
@@ -49,15 +35,7 @@ public class UserCacheServiceImpl implements UserCacheService {
   public FrontUser getUserByUsername(String username) {
     String cacheKey = SbsCacheKeyUtil.getFrontDbKey(SbsCacheKey.FRONT_USER, username);
 
-    CacheIntermedFrontUser cacheIntermedFrontUser =
-        (CacheIntermedFrontUser) redisService.get(cacheKey);
-    if (cacheIntermedFrontUser == null) return null;
-
-    FrontUser frontUser = new FrontUser();
-    BeanUtils.copyProperties(cacheIntermedFrontUser, frontUser, "internalPassword");
-    frontUser.setPassword(cacheIntermedFrontUser.getInternalPassword());
-
-    return frontUser;
+    return (FrontUser) redisService.get(cacheKey);
   }
 
   @Override
@@ -65,11 +43,7 @@ public class UserCacheServiceImpl implements UserCacheService {
     String cacheKey =
         SbsCacheKeyUtil.getFrontDbKey(SbsCacheKey.FRONT_USER, frontUser.getUsername());
 
-    CacheIntermedFrontUser cacheIntermedFrontUser = new CacheIntermedFrontUser();
-    BeanUtils.copyProperties(frontUser, cacheIntermedFrontUser);
-    cacheIntermedFrontUser.setInternalPassword(cacheIntermedFrontUser.getPassword());
-
-    redisService.set(cacheKey, cacheIntermedFrontUser, SbsCacheKeyUtil.TWO_WEEKS);
+    redisService.set(cacheKey, frontUser, SbsCacheKeyUtil.TWO_WEEKS);
   }
 
   @Override

@@ -10,7 +10,7 @@ import dr.sbs.admin.component.RestfulAccessDeniedHandler;
 import dr.sbs.admin.service.AdminResourceService;
 import dr.sbs.admin.service.AdminUserService;
 import dr.sbs.admin.util.JwtTokenUtil;
-import dr.sbs.mbg.model.AdminResource;
+import dr.sbs.mp.entity.AdminResource;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

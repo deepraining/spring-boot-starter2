@@ -1,7 +1,7 @@
 package dr.sbs.admin.bo;
 
-import dr.sbs.mbg.model.AdminResource;
-import dr.sbs.mbg.model.AdminUser;
+import dr.sbs.mp.entity.AdminResource;
+import dr.sbs.mp.entity.AdminUser;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;

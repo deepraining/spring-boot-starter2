@@ -1,10 +1,10 @@
 package dr.sbs.admin.service;
 
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.admin.dto.AdminMenuNode;
-import dr.sbs.mbg.mapper.AdminMenuMapper;
-import dr.sbs.mbg.model.AdminMenu;
-import dr.sbs.mbg.model.AdminMenuExample;
+import dr.sbs.mp.entity.AdminMenu;
+import dr.sbs.mp.service.AdminMenuMpService;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
@@ -14,12 +14,12 @@ import org.springframework.stereotype.Service;
 /** 后台菜单管理Service实现类 */
 @Service
 public class AdminMenuServiceImpl implements AdminMenuService {
-  @Autowired private AdminMenuMapper menuMapper;
+  @Autowired private AdminMenuMpService menuMpService;
 
   @Override
-  public int create(AdminMenu adminMenu) {
+  public boolean create(AdminMenu adminMenu) {
     updateLevel(adminMenu);
-    return menuMapper.insertSelective(adminMenu);
+    return menuMpService.save(adminMenu);
   }
 
   /** 修改菜单层级 */
@@ -29,7 +29,7 @@ public class AdminMenuServiceImpl implements AdminMenuService {
       adminMenu.setLevel(0);
     } else {
       // 有父菜单时选择根据父菜单level设置
-      AdminMenu parentMenu = menuMapper.selectByPrimaryKey(adminMenu.getParentId());
+      AdminMenu parentMenu = menuMpService.getById(adminMenu.getParentId());
       if (parentMenu != null) {
         adminMenu.setLevel(parentMenu.getLevel() + 1);
       } else {
@@ -39,41 +39,44 @@ public class AdminMenuServiceImpl implements AdminMenuService {
   }
 
   @Override
-  public int update(Long id, AdminMenu adminMenu) {
+  public boolean update(Long id, AdminMenu adminMenu) {
     adminMenu.setId(id);
     updateLevel(adminMenu);
-    return menuMapper.updateByPrimaryKeySelective(adminMenu);
+    return menuMpService.updateById(adminMenu);
   }
 
   @Override
   public AdminMenu getItem(Long id) {
-    return menuMapper.selectByPrimaryKey(id);
+    return menuMpService.getById(id);
   }
 
   @Override
-  public int delete(Long id) {
+  public boolean delete(Long id) {
     AdminMenu adminMenu = new AdminMenu();
     adminMenu.setId(id);
     adminMenu.setStatus(-1);
 
-    return menuMapper.updateByPrimaryKeySelective(adminMenu);
+    return menuMpService.updateById(adminMenu);
   }
 
   @Override
-  public List<AdminMenu> list(Long parentId, Integer pageSize, Integer pageNum) {
-    PageHelper.startPage(pageNum, pageSize);
-    AdminMenuExample example = new AdminMenuExample();
-    example.setOrderByClause("sort desc");
-    example.createCriteria().andParentIdEqualTo(parentId).andStatusEqualTo(1);
-    return menuMapper.selectByExample(example);
+  public Page<AdminMenu> list(Long parentId, Integer pageSize, Integer pageNum) {
+    Page<AdminMenu> page = new Page<>();
+    page.setCurrent(pageNum);
+    page.setSize(pageSize);
+    QueryWrapper<AdminMenu> queryWrapper = new QueryWrapper<>();
+    queryWrapper.eq("parent_id", parentId);
+    queryWrapper.eq("status", 1);
+    queryWrapper.orderByDesc("sort");
+    return menuMpService.page(page, queryWrapper);
   }
 
   @Override
   public List<AdminMenuNode> treeList() {
-    AdminMenuExample example = new AdminMenuExample();
-    example.setOrderByClause("sort desc");
-    example.createCriteria().andStatusEqualTo(1);
-    List<AdminMenu> menuList = menuMapper.selectByExample(example);
+    QueryWrapper<AdminMenu> queryWrapper = new QueryWrapper<>();
+    queryWrapper.eq("status", 1);
+    queryWrapper.orderByDesc("sort");
+    List<AdminMenu> menuList = menuMpService.list(queryWrapper);
     List<AdminMenuNode> result =
         menuList.stream()
             .filter(menu -> menu.getParentId().equals(0L))
@@ -83,11 +86,11 @@ public class AdminMenuServiceImpl implements AdminMenuService {
   }
 
   @Override
-  public int updateHidden(Long id, Integer hidden) {
+  public boolean updateHidden(Long id, Integer hidden) {
     AdminMenu adminMenu = new AdminMenu();
     adminMenu.setId(id);
     adminMenu.setHidden(hidden);
-    return menuMapper.updateByPrimaryKeySelective(adminMenu);
+    return menuMpService.updateById(adminMenu);
   }
 
   /** 将AdminMenu转化为AdminMenuNode并设置children属性 */

@@ -1,20 +1,20 @@
 package dr.sbs.admin.service;
 
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.admin.dto.ArticleCreateParam;
 import dr.sbs.admin.dto.ArticleRecord;
 
 /** 文章管理Service */
 public interface ArticleService {
   /** 获取文章列表 */
-  PageInfo<ArticleRecord> list(String searchKey, Integer pageSize, Integer pageNum);
+  Page<ArticleRecord> list(String searchKey, Integer pageSize, Integer pageNum);
 
   /** 创建文章 */
-  int create(ArticleCreateParam articleCreateParam);
+  boolean create(ArticleCreateParam articleCreateParam);
 
   /** 修改文章 */
-  int update(Long id, ArticleCreateParam articleCreateParam);
+  boolean update(Long id, ArticleCreateParam articleCreateParam);
 
   /** 删除文章 */
-  int delete(Long id);
+  boolean delete(Long id);
 }

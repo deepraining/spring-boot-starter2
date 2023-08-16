@@ -8,7 +8,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.ApplicationContext;
 
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"dr.sbs.admin", "dr.sbs.mp"})
 public class App extends SpringBootServletInitializer {
 
   public static void main(String[] args) {

@@ -1,13 +1,13 @@
 package dr.sbs.front.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.common.CommonPage;
 import dr.sbs.common.CommonResult;
 import dr.sbs.front.service.ArticleService;
-import dr.sbs.mbg.model.Article;
+import dr.sbs.mp.entity.Article;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +31,7 @@ public class UserController {
       @RequestParam(value = "pageNum", defaultValue = "1")
           @ApiParam(value = "页码", defaultValue = "1")
           Integer pageNum) {
-    List<Article> list = articleService.myList(pageSize, pageNum);
+    Page<Article> list = articleService.myList(pageSize, pageNum);
     return CommonResult.success(CommonPage.toPage(list));
   }
 }

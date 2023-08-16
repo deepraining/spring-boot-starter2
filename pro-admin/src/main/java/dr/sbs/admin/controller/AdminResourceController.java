@@ -1,10 +1,11 @@
 package dr.sbs.admin.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.admin.component.DynamicSecurityMetadataSource;
 import dr.sbs.admin.service.AdminResourceService;
 import dr.sbs.common.CommonPage;
 import dr.sbs.common.CommonResult;
-import dr.sbs.mbg.model.AdminResource;
+import dr.sbs.mp.entity.AdminResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
@@ -32,10 +33,10 @@ public class AdminResourceController {
   @ResponseBody
   public CommonResult<Integer> create(
       @RequestBody @Validated AdminResource adminResource, BindingResult bindingResult) {
-    int count = resourceService.create(adminResource);
+    boolean result = resourceService.create(adminResource);
     dynamicSecurityMetadataSource.clearDataSource();
-    if (count > 0) {
-      return CommonResult.success(count);
+    if (result) {
+      return CommonResult.success(1);
     } else {
       return CommonResult.failed();
     }
@@ -48,10 +49,10 @@ public class AdminResourceController {
       @PathVariable Long id,
       @RequestBody @Validated AdminResource adminResource,
       BindingResult bindingResult) {
-    int count = resourceService.update(id, adminResource);
+    boolean result = resourceService.update(id, adminResource);
     dynamicSecurityMetadataSource.clearDataSource();
-    if (count > 0) {
-      return CommonResult.success(count);
+    if (result) {
+      return CommonResult.success(1);
     } else {
       return CommonResult.failed();
     }
@@ -69,10 +70,10 @@ public class AdminResourceController {
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> delete(@PathVariable Long id) {
-    int count = resourceService.delete(id);
+    boolean result = resourceService.delete(id);
     dynamicSecurityMetadataSource.clearDataSource();
-    if (count > 0) {
-      return CommonResult.success(count);
+    if (result) {
+      return CommonResult.success(1);
     } else {
       return CommonResult.failed();
     }
@@ -87,7 +88,7 @@ public class AdminResourceController {
       @RequestParam(required = false) String urlKeyword,
       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-    List<AdminResource> resourceList =
+    Page<AdminResource> resourceList =
         resourceService.list(categoryId, nameKeyword, urlKeyword, pageSize, pageNum);
     return CommonResult.success(CommonPage.toPage(resourceList));
   }

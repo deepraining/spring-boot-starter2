@@ -2,7 +2,7 @@ package dr.sbs.front.service;
 
 import dr.sbs.front.dto.UpdatePasswordParam;
 import dr.sbs.front.dto.UserCreateParam;
-import dr.sbs.mbg.model.FrontUser;
+import dr.sbs.mp.entity.FrontUser;
 
 public interface UserService {
   /** Get user by username */
@@ -15,7 +15,7 @@ public interface UserService {
   FrontUser register(UserCreateParam userCreateParam);
 
   /** Update password */
-  Integer updatePassword(UpdatePasswordParam updatePasswordParam);
+  boolean updatePassword(UpdatePasswordParam updatePasswordParam);
 
   /** Get current user information */
   FrontUser getCurrentUser();

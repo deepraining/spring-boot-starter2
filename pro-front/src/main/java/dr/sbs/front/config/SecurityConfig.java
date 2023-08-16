@@ -7,7 +7,7 @@ import dr.sbs.front.component.GoAuthenticationFailureHandler;
 import dr.sbs.front.component.GoAuthenticationSuccessHandler;
 import dr.sbs.front.component.GoLogoutSuccessHandler;
 import dr.sbs.front.service.UserService;
-import dr.sbs.mbg.model.FrontUser;
+import dr.sbs.mp.entity.FrontUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,6 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.OPTIONS)
         .permitAll()
         .and()
+        .csrf()
+        .disable()
         .exceptionHandling()
         .accessDeniedHandler(new GoAccessDeniedHandler())
         .authenticationEntryPoint(new GoAuthenticationEntryPoint())

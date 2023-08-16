@@ -4,7 +4,7 @@ import dr.sbs.common.CommonResult;
 import dr.sbs.front.dto.UpdatePasswordParam;
 import dr.sbs.front.dto.UserCreateParam;
 import dr.sbs.front.service.UserService;
-import dr.sbs.mbg.model.FrontUser;
+import dr.sbs.mp.entity.FrontUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +38,8 @@ public class AccountController {
   public CommonResult<Integer> updatePassword(
       @RequestBody @Validated UpdatePasswordParam updatePasswordParam,
       BindingResult bindingResult) {
-    int count = userService.updatePassword(updatePasswordParam);
-    if (count > 0) return CommonResult.success(count);
+    boolean result = userService.updatePassword(updatePasswordParam);
+    if (result) return CommonResult.success(1);
     return CommonResult.failed();
   }
 

@@ -1,6 +1,6 @@
 package dr.sbs.front.bo;
 
-import dr.sbs.mbg.model.FrontUser;
+import dr.sbs.mp.entity.FrontUser;
 import java.util.Arrays;
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;

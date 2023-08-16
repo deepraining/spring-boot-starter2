@@ -1,7 +1,7 @@
 package dr.sbs.admin.dto;
 
-import dr.sbs.mbg.model.Article;
-import dr.sbs.mbg.model.FrontUser;
+import dr.sbs.mp.entity.Article;
+import dr.sbs.mp.entity.FrontUser;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

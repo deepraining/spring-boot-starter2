@@ -12,7 +12,7 @@
         #{item.roleId,jdbcType=BIGINT})
       </foreach>
   </insert>
-  <select id="getRoleList" resultMap="dr.sbs.mbg.mapper.AdminRoleMapper.BaseResultMap">
+  <select id="getRoleList" resultMap="dr.sbs.mp.mapper.AdminRoleMapper.BaseResultMap">
     SELECT
       r.*
     FROM
@@ -21,7 +21,7 @@
     WHERE
       urr.user_id = #{userId} AND urr.status = 1 AND r.status = 1
   </select>
-  <select id="getMenuList" resultMap="dr.sbs.mbg.mapper.AdminMenuMapper.BaseResultMap">
+  <select id="getMenuList" resultMap="dr.sbs.mp.mapper.AdminMenuMapper.BaseResultMap">
     SELECT
       m.*
     FROM
@@ -39,7 +39,7 @@
     GROUP BY
       m.id
   </select>
-  <select id="getResourceList" resultMap="dr.sbs.mbg.mapper.AdminResourceMapper.BaseResultMap">
+  <select id="getResourceList" resultMap="dr.sbs.mp.mapper.AdminResourceMapper.BaseResultMap">
     SELECT
       res.*
     FROM

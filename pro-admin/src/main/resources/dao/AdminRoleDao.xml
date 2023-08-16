@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dr.sbs.admin.dao.AdminRoleDao">
-  <select id="getMenuList" resultMap="dr.sbs.mbg.mapper.AdminMenuMapper.BaseResultMap">
+  <select id="getMenuList" resultMap="dr.sbs.mp.mapper.AdminMenuMapper.BaseResultMap">
     SELECT
       m.*
     FROM
@@ -16,7 +16,7 @@
     GROUP BY
       m.id
   </select>
-  <select id="getResourceList" resultMap="dr.sbs.mbg.mapper.AdminResourceMapper.BaseResultMap">
+  <select id="getResourceList" resultMap="dr.sbs.mp.mapper.AdminResourceMapper.BaseResultMap">
     SELECT
       r.*
     FROM

@@ -1,13 +1,14 @@
 package dr.sbs.admin.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.admin.dto.AdminLoginParam;
 import dr.sbs.admin.dto.AdminUpdatePasswordParam;
 import dr.sbs.admin.dto.AdminUserParam;
 import dr.sbs.admin.service.AdminUserService;
 import dr.sbs.common.CommonPage;
 import dr.sbs.common.CommonResult;
-import dr.sbs.mbg.model.AdminRole;
-import dr.sbs.mbg.model.AdminUser;
+import dr.sbs.mp.entity.AdminRole;
+import dr.sbs.mp.entity.AdminUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.security.Principal;
@@ -114,7 +115,7 @@ public class AdminController {
       @RequestParam(value = "keyword", required = false) String keyword,
       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-    List<AdminUser> adminList = userService.list(keyword, pageSize, pageNum);
+    Page<AdminUser> adminList = userService.list(keyword, pageSize, pageNum);
     return CommonResult.success(CommonPage.toPage(adminList));
   }
 
@@ -133,9 +134,9 @@ public class AdminController {
       @PathVariable Long id,
       @RequestBody @Validated AdminUser adminUser,
       BindingResult bindingResult) {
-    int count = userService.update(id, adminUser);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = userService.update(id, adminUser);
+    if (result) {
+      return CommonResult.success(1);
     }
     return CommonResult.failed();
   }
@@ -164,9 +165,9 @@ public class AdminController {
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> delete(@PathVariable Long id) {
-    int count = userService.delete(id);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = userService.delete(id);
+    if (result) {
+      return CommonResult.success(1);
     }
     return CommonResult.failed();
   }
@@ -178,9 +179,9 @@ public class AdminController {
       @PathVariable Long id, @RequestParam(value = "status") Integer status) {
     AdminUser adminUser = new AdminUser();
     adminUser.setStatus(status);
-    int count = userService.update(id, adminUser);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = userService.update(id, adminUser);
+    if (result) {
+      return CommonResult.success(1);
     }
     return CommonResult.failed();
   }
@@ -190,9 +191,9 @@ public class AdminController {
   @ResponseBody
   public CommonResult<Integer> updateRole(
       @RequestParam("userId") Long userId, @RequestParam("roleIds") List<Long> roleIds) {
-    int count = userService.updateRole(userId, roleIds);
-    if (count >= 0) {
-      return CommonResult.success(count);
+    boolean result = userService.updateRole(userId, roleIds);
+    if (result) {
+      return CommonResult.success(1);
     }
     return CommonResult.failed();
   }

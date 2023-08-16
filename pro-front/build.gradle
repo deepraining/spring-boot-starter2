@@ -19,6 +19,6 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-websocket:2.1.4.RELEASE'
 
   // projects
-//  implementation project(':pro-mbg')
+  implementation project(':pro-mp')
   implementation project(':pro-common')
 }

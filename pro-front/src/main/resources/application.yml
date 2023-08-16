@@ -25,11 +25,22 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: Asia/Shanghai
+    default-property-inclusion: non_null
 
-mybatis:
+  freemarker:
+    enabled: true
+    suffix: .html
+    # if you want to deploy html files separately(not in jar files), uncomment below
+    # cache: false
+    # template-loader-path: file:./templates/
+
+mybatis-plus:
+  configuration:
+    cache-enabled: false
+    local-cache-scope: statement
   mapper-locations:
     - classpath:dao/**/*.xml
-    - classpath*:dr/sbs/mbg/mapper/*.xml
+    - classpath*:dr/sbs/mp/mapper/*.xml
 
 logging:
   level:

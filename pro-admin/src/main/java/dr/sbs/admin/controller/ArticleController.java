@@ -1,6 +1,6 @@
 package dr.sbs.admin.controller;
 
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.admin.dto.ArticleCreateParam;
 import dr.sbs.admin.dto.ArticleRecord;
 import dr.sbs.admin.service.ArticleService;
@@ -40,7 +40,7 @@ public class ArticleController {
       @RequestParam(value = "searchKey", defaultValue = "")
           @ApiParam(value = "搜索关键字", defaultValue = "")
           String searchKey) {
-    PageInfo<ArticleRecord> articleList = articleService.list(searchKey, pageSize, pageNum);
+    Page<ArticleRecord> articleList = articleService.list(searchKey, pageSize, pageNum);
     return CommonResult.success(CommonPage.toPage(articleList));
   }
 
@@ -49,9 +49,9 @@ public class ArticleController {
   @ResponseBody
   public CommonResult<Integer> create(
       @RequestBody @Validated ArticleCreateParam articleCreateParam, BindingResult bindingResult) {
-    int count = articleService.create(articleCreateParam);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = articleService.create(articleCreateParam);
+    if (result) {
+      return CommonResult.success(1);
     } else {
       return CommonResult.failed();
     }
@@ -64,9 +64,9 @@ public class ArticleController {
       @PathVariable Long id,
       @RequestBody @Validated ArticleCreateParam articleCreateParam,
       BindingResult bindingResult) {
-    int count = articleService.update(id, articleCreateParam);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = articleService.update(id, articleCreateParam);
+    if (result) {
+      return CommonResult.success(1);
     } else {
       return CommonResult.failed();
     }
@@ -76,9 +76,9 @@ public class ArticleController {
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> delete(@PathVariable Long id) {
-    int count = articleService.delete(id);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = articleService.delete(id);
+    if (result) {
+      return CommonResult.success(1);
     } else {
       return CommonResult.failed();
     }

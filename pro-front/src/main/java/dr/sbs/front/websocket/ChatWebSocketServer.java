@@ -2,7 +2,7 @@ package dr.sbs.front.websocket;
 
 import dr.sbs.front.component.SpringUtils;
 import dr.sbs.front.service.UserService;
-import dr.sbs.mbg.model.FrontUser;
+import dr.sbs.mp.entity.FrontUser;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

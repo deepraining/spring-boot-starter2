@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"dr.sbs.front", "dr.sbs.mp"})
 @EnableRedisHttpSession
 public class App extends SpringBootServletInitializer {
 

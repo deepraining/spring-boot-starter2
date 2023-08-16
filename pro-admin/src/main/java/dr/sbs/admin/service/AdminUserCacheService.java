@@ -1,7 +1,7 @@
 package dr.sbs.admin.service;
 
-import dr.sbs.mbg.model.AdminResource;
-import dr.sbs.mbg.model.AdminUser;
+import dr.sbs.mp.entity.AdminResource;
+import dr.sbs.mp.entity.AdminUser;
 import java.util.List;
 
 /** 后台用户缓存操作类 */

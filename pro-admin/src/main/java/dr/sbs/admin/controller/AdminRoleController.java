@@ -1,11 +1,12 @@
 package dr.sbs.admin.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.admin.service.AdminRoleService;
 import dr.sbs.common.CommonPage;
 import dr.sbs.common.CommonResult;
-import dr.sbs.mbg.model.AdminMenu;
-import dr.sbs.mbg.model.AdminResource;
-import dr.sbs.mbg.model.AdminRole;
+import dr.sbs.mp.entity.AdminMenu;
+import dr.sbs.mp.entity.AdminResource;
+import dr.sbs.mp.entity.AdminRole;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
@@ -32,9 +33,9 @@ public class AdminRoleController {
   @ResponseBody
   public CommonResult<Integer> create(
       @RequestBody @Validated AdminRole role, BindingResult bindingResult) {
-    int count = roleService.create(role);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = roleService.create(role);
+    if (result) {
+      return CommonResult.success(1);
     }
     return CommonResult.failed();
   }
@@ -44,9 +45,9 @@ public class AdminRoleController {
   @ResponseBody
   public CommonResult<Integer> update(
       @PathVariable Long id, @RequestBody @Validated AdminRole role, BindingResult bindingResult) {
-    int count = roleService.update(id, role);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = roleService.update(id, role);
+    if (result) {
+      return CommonResult.success(1);
     }
     return CommonResult.failed();
   }
@@ -55,9 +56,9 @@ public class AdminRoleController {
   @RequestMapping(value = "/delete", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> delete(@RequestParam("ids") List<Long> ids) {
-    int count = roleService.delete(ids);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = roleService.delete(ids);
+    if (result) {
+      return CommonResult.success(1);
     }
     return CommonResult.failed();
   }
@@ -77,7 +78,7 @@ public class AdminRoleController {
       @RequestParam(value = "keyword", required = false) String keyword,
       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-    List<AdminRole> roleList = roleService.list(keyword, pageSize, pageNum);
+    Page<AdminRole> roleList = roleService.list(keyword, pageSize, pageNum);
     return CommonResult.success(CommonPage.toPage(roleList));
   }
 
@@ -88,9 +89,9 @@ public class AdminRoleController {
       @PathVariable Long id, @RequestParam(value = "status") Integer status) {
     AdminRole adminRole = new AdminRole();
     adminRole.setStatus(status);
-    int count = roleService.update(id, adminRole);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = roleService.update(id, adminRole);
+    if (result) {
+      return CommonResult.success(1);
     }
     return CommonResult.failed();
   }
@@ -116,8 +117,8 @@ public class AdminRoleController {
   @ResponseBody
   public CommonResult<Integer> allocMenu(
       @RequestParam Long roleId, @RequestParam List<Long> menuIds) {
-    int count = roleService.allocMenu(roleId, menuIds);
-    return CommonResult.success(count);
+    boolean result = roleService.allocMenu(roleId, menuIds);
+    return CommonResult.success(1);
   }
 
   @ApiOperation("给角色分配资源")
@@ -125,7 +126,7 @@ public class AdminRoleController {
   @ResponseBody
   public CommonResult<Integer> allocResource(
       @RequestParam Long roleId, @RequestParam List<Long> resourceIds) {
-    int count = roleService.allocResource(roleId, resourceIds);
-    return CommonResult.success(count);
+    boolean result = roleService.allocResource(roleId, resourceIds);
+    return CommonResult.success(1);
   }
 }

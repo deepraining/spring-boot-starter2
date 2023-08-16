@@ -1,6 +1,6 @@
 package dr.sbs.admin.dto;
 
-import dr.sbs.mbg.model.AdminMenu;
+import dr.sbs.mp.entity.AdminMenu;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;

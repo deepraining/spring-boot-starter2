@@ -1,9 +1,9 @@
 package dr.sbs.admin.dao;
 
-import dr.sbs.mbg.model.AdminMenu;
-import dr.sbs.mbg.model.AdminResource;
-import dr.sbs.mbg.model.AdminRole;
-import dr.sbs.mbg.model.AdminUserRoleRelation;
+import dr.sbs.mp.entity.AdminMenu;
+import dr.sbs.mp.entity.AdminResource;
+import dr.sbs.mp.entity.AdminRole;
+import dr.sbs.mp.entity.AdminUserRoleRelation;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

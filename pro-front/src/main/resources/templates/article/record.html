@@ -2,12 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <!-- CSRF -->
-  <meta name="_csrf" th:content="${_csrf.token}"/>
-  <!-- default header name is X-CSRF-TOKEN -->
-  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-
   <title>Article Detail</title>
 </head>
 <body>
@@ -15,18 +9,5 @@
 <p>Article Summary: <span id="intro"></span></p>
 <p>Article Content: <span id="content"></span></p>
 </body>
-<script>
-  const titleEl = document.getElementById('title');
-  const introEl = document.getElementById('intro');
-  const contentEl = document.getElementById('content');
-  const id = location.href.split('/').slice(-1)[0];
-
-  fetch(`/api/article/record/${id}`).then(res => res.json()).then(res => {
-    if (res.code === 0) {
-      titleEl.innerText = res.data.title;
-      introEl.innerText = res.data.intro;
-      contentEl.innerText = res.data.content;
-    }
-  });
-</script>
+<script src="/static/article/record.js"></script>
 </html>

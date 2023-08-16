@@ -1,15 +1,13 @@
 package dr.sbs.front.service;
 
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.common.exception.ApiAssert;
 import dr.sbs.common.util.UuidUtil;
 import dr.sbs.front.dto.ArticleCreateParam;
-import dr.sbs.mbg.mapper.ArticleMapper;
-import dr.sbs.mbg.model.Article;
-import dr.sbs.mbg.model.ArticleExample;
-import dr.sbs.mbg.model.FrontUser;
-import java.util.ArrayList;
-import java.util.List;
+import dr.sbs.mp.entity.Article;
+import dr.sbs.mp.entity.FrontUser;
+import dr.sbs.mp.service.ArticleMpService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,41 +15,42 @@ import org.springframework.util.StringUtils;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
-  @Autowired private ArticleMapper articleMapper;
+  @Autowired private ArticleMpService articleMpService;
   @Autowired private UserService userService;
 
   @Override
-  public List<Article> list(String searchKey, Integer pageSize, Integer pageNum) {
-    PageHelper.startPage(pageNum, pageSize);
-    ArticleExample example = new ArticleExample();
-    example.setOrderByClause("id desc");
-    ArticleExample.Criteria criteria = example.createCriteria();
+  public Page<Article> list(String searchKey, Integer pageSize, Integer pageNum) {
+    Page<Article> page = new Page<>();
+    page.setCurrent(pageNum);
+    page.setSize(pageSize);
+    QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
+    queryWrapper.eq("status", 1);
+    queryWrapper.orderByDesc("id");
 
-    criteria.andStatusEqualTo((byte) 1);
     if (!StringUtils.isEmpty(searchKey)) {
-      criteria.andTitleLike("%" + searchKey + "%");
+      queryWrapper.like("title", searchKey);
     }
-    return articleMapper.selectByExample(example);
+    return articleMpService.page(page, queryWrapper);
   }
 
   @Override
-  public List<Article> myList(Integer pageSize, Integer pageNum) {
+  public Page<Article> myList(Integer pageSize, Integer pageNum) {
     FrontUser user = userService.getCurrentUser();
+    Page<Article> page = new Page<>();
+    page.setCurrent(pageNum);
+    page.setSize(pageSize);
 
-    if (user == null) return new ArrayList<>();
+    if (user == null) return page;
 
-    PageHelper.startPage(pageNum, pageSize);
-    ArticleExample example = new ArticleExample();
-    example.setOrderByClause("id desc");
-    ArticleExample.Criteria criteria = example.createCriteria();
-
-    criteria.andStatusEqualTo((byte) 1);
-    criteria.andFrontUserIdEqualTo(user.getId());
-    return articleMapper.selectByExample(example);
+    QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
+    queryWrapper.eq("status", 1);
+    queryWrapper.eq("front_user_id", user.getId());
+    queryWrapper.orderByDesc("id");
+    return articleMpService.page(page, queryWrapper);
   }
 
   @Override
-  public int create(ArticleCreateParam articleCreateParam) {
+  public boolean create(ArticleCreateParam articleCreateParam) {
     FrontUser user = userService.getCurrentUser();
     if (user == null) ApiAssert.fail("未登录");
 
@@ -59,15 +58,15 @@ public class ArticleServiceImpl implements ArticleService {
     BeanUtils.copyProperties(articleCreateParam, article);
     article.setId(UuidUtil.nextId());
     article.setFrontUserId(user.getId());
-    return articleMapper.insertSelective(article);
+    return articleMpService.save(article);
   }
 
   @Override
-  public int update(Long id, ArticleCreateParam articleCreateParam) {
+  public boolean update(Long id, ArticleCreateParam articleCreateParam) {
     FrontUser user = userService.getCurrentUser();
     if (user == null) ApiAssert.fail("未登录");
 
-    Article oldArticle = articleMapper.selectByPrimaryKey(id);
+    Article oldArticle = articleMpService.getById(id);
 
     if (oldArticle == null) ApiAssert.fail("文章不存在");
     if (!oldArticle.getFrontUserId().equals(user.getId())) ApiAssert.fail("无权限");
@@ -76,15 +75,15 @@ public class ArticleServiceImpl implements ArticleService {
     BeanUtils.copyProperties(articleCreateParam, article);
     article.setId(id);
 
-    return articleMapper.updateByPrimaryKeySelective(article);
+    return articleMpService.updateById(article);
   }
 
   @Override
-  public int delete(Long id) {
+  public boolean delete(Long id) {
     FrontUser user = userService.getCurrentUser();
     if (user == null) ApiAssert.fail("未登录");
 
-    Article oldArticle = articleMapper.selectByPrimaryKey(id);
+    Article oldArticle = articleMpService.getById(id);
 
     if (oldArticle == null) ApiAssert.fail("文章不存在");
     if (!oldArticle.getFrontUserId().equals(user.getId())) ApiAssert.fail("无权限");
@@ -93,11 +92,11 @@ public class ArticleServiceImpl implements ArticleService {
     article.setId(id);
     article.setStatus((byte) 0);
 
-    return articleMapper.updateByPrimaryKeySelective(article);
+    return articleMpService.updateById(article);
   }
 
   @Override
   public Article getItem(Long id) {
-    return articleMapper.selectByPrimaryKey(id);
+    return articleMpService.getById(id);
   }
 }

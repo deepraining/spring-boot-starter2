@@ -1,9 +1,8 @@
 package dr.sbs.common;
 
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
 import lombok.Data;
-import org.springframework.data.domain.Page;
 
 @Data
 public class CommonPage<T> {
@@ -13,39 +12,14 @@ public class CommonPage<T> {
   private long total;
   private List<T> list;
 
-  public static <T> CommonPage<T> toPage(List<T> list) {
-    CommonPage<T> result = new CommonPage<T>();
-    PageInfo<T> pageInfo = new PageInfo<T>(list);
-
-    result.setPages(pageInfo.getPages());
-    result.setPageNum(pageInfo.getPageNum());
-    result.setPageSize(pageInfo.getPageSize());
-    result.setTotal(pageInfo.getTotal());
-    result.setList(pageInfo.getList());
-
-    return result;
-  }
-
-  public static <T> CommonPage<T> toPage(Page<T> pageInfo) {
+  public static <T> CommonPage<T> toPage(IPage<T> p) {
     CommonPage<T> result = new CommonPage<T>();
 
-    result.setPages(pageInfo.getTotalPages());
-    result.setPageNum(pageInfo.getNumber());
-    result.setPageSize(pageInfo.getSize());
-    result.setTotal(pageInfo.getTotalElements());
-    result.setList(pageInfo.getContent());
-
-    return result;
-  }
-
-  public static <T> CommonPage<T> toPage(PageInfo<T> pageInfo) {
-    CommonPage<T> result = new CommonPage<T>();
-
-    result.setPages(pageInfo.getPages());
-    result.setPageNum(pageInfo.getPageNum());
-    result.setPageSize(pageInfo.getPageSize());
-    result.setTotal(pageInfo.getTotal());
-    result.setList(pageInfo.getList());
+    result.setPages((int) p.getPages());
+    result.setPageNum((int) p.getCurrent());
+    result.setPageSize((int) p.getSize());
+    result.setTotal(p.getTotal());
+    result.setList(p.getRecords());
 
     return result;
   }

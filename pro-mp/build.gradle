@@ -1,0 +1,12 @@
+group = 'dr.sbs'
+// version should not have '-'
+version = new Date().format("yyyy.MMdd.HHmm", TimeZone.getTimeZone("GMT+08:00"))
+archivesBaseName = 'mp'
+sourceCompatibility = 1.8
+description = 'Spring Boot Starter Mybatis Plus Generator.'
+
+mainClassName = 'dr.sbs.mp.App'
+
+dependencies {
+  implementation 'com.baomidou:mybatis-plus-generator:3.5.3.1'
+}

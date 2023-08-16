@@ -2,7 +2,7 @@ package dr.sbs.admin.controller;
 
 import dr.sbs.admin.service.AdminResourceCategoryService;
 import dr.sbs.common.CommonResult;
-import dr.sbs.mbg.model.AdminResourceCategory;
+import dr.sbs.mp.entity.AdminResourceCategory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
@@ -37,9 +37,9 @@ public class AdminResourceCategoryController {
   public CommonResult<Integer> create(
       @RequestBody @Validated AdminResourceCategory adminResourceCategory,
       BindingResult bindingResult) {
-    int count = resourceCategoryService.create(adminResourceCategory);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = resourceCategoryService.create(adminResourceCategory);
+    if (result) {
+      return CommonResult.success(1);
     } else {
       return CommonResult.failed();
     }
@@ -52,9 +52,9 @@ public class AdminResourceCategoryController {
       @PathVariable Long id,
       @RequestBody @Validated AdminResourceCategory adminResourceCategory,
       BindingResult bindingResult) {
-    int count = resourceCategoryService.update(id, adminResourceCategory);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = resourceCategoryService.update(id, adminResourceCategory);
+    if (result) {
+      return CommonResult.success(1);
     } else {
       return CommonResult.failed();
     }
@@ -64,9 +64,9 @@ public class AdminResourceCategoryController {
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> delete(@PathVariable Long id) {
-    int count = resourceCategoryService.delete(id);
-    if (count > 0) {
-      return CommonResult.success(count);
+    boolean result = resourceCategoryService.delete(id);
+    if (result) {
+      return CommonResult.success(1);
     } else {
       return CommonResult.failed();
     }

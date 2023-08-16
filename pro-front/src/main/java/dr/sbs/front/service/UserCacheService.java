@@ -1,6 +1,6 @@
 package dr.sbs.front.service;
 
-import dr.sbs.mbg.model.FrontUser;
+import dr.sbs.mp.entity.FrontUser;
 
 /** 用户缓存操作类 */
 public interface UserCacheService {
