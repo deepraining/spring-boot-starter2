@@ -1,0 +1,25 @@
+plugins {
+  id 'org.springframework.boot'
+  id "io.spring.dependency-management"
+}
+
+group = 'dr.sbs'
+// version should not have '-'
+version = new Date().format("yyyy.MMdd.HHmm", TimeZone.getTimeZone("GMT+08:00"))
+archivesBaseName = 'sbs-front'
+sourceCompatibility = 1.8
+description = 'Spring Boot Starter Front Application.'
+
+mainClassName = 'dr.sbs.front.App'
+
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter-security:2.1.4.RELEASE'
+  implementation 'org.springframework.session:spring-session-data-redis:2.1.4.RELEASE'
+  implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.1.4.RELEASE'
+  implementation 'com.baomidou:dynamic-datasource-spring-boot-starter:3.6.1'
+
+  // projects
+  implementation project(':pro-dds-mp2')
+  implementation project(':pro-dds-mp3')
+  implementation project(':pro-common')
+}

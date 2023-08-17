@@ -5,7 +5,7 @@ import dr.sbs.front.dto.UpdatePasswordParam;
 import dr.sbs.front.dto.UserCreateParam;
 import dr.sbs.front.service.UserService;
 import dr.sbs.front.util.ResultFilter;
-import dr.sbs.mp.entity.FrontUser;
+import dr.sbs.mp2.entity.FrontUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

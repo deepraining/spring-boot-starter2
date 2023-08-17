@@ -5,6 +5,7 @@ import dr.sbs.admin.dto.AdminLoginParam;
 import dr.sbs.admin.dto.AdminUpdatePasswordParam;
 import dr.sbs.admin.dto.AdminUserParam;
 import dr.sbs.admin.service.AdminUserService;
+import dr.sbs.admin.util.ResultFilter;
 import dr.sbs.common.CommonPage;
 import dr.sbs.common.CommonResult;
 import dr.sbs.mp.entity.AdminRole;
@@ -12,6 +13,7 @@ import dr.sbs.mp.entity.AdminUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +52,7 @@ public class AdminController {
     if (adminUser == null) {
       CommonResult.failed();
     }
-    return CommonResult.success(adminUser);
+    return CommonResult.success(ResultFilter.filterAdminUser(adminUser));
   }
 
   @ApiOperation(value = "登录以后返回token")
@@ -116,6 +118,14 @@ public class AdminController {
       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
     Page<AdminUser> adminList = userService.list(keyword, pageSize, pageNum);
+    List<AdminUser> list = adminList.getRecords();
+    if (list != null && list.size() > 0) {
+      List<AdminUser> newList = new ArrayList<>();
+      for (AdminUser item : list) {
+        newList.add(ResultFilter.filterAdminUser(item));
+      }
+      adminList.setRecords(newList);
+    }
     return CommonResult.success(CommonPage.toPage(adminList));
   }
 
@@ -124,7 +134,7 @@ public class AdminController {
   @ResponseBody
   public CommonResult<AdminUser> getItem(@PathVariable Long id) {
     AdminUser adminUser = userService.getItem(id);
-    return CommonResult.success(adminUser);
+    return CommonResult.success(ResultFilter.filterAdminUser(adminUser));
   }
 
   @ApiOperation("修改指定用户信息")
