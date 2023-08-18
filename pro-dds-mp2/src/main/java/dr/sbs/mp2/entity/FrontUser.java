@@ -12,7 +12,7 @@ import lombok.Setter;
  * 前端用户
  *
  * @author deepraining
- * @since 2023-08-17
+ * @since
  */
 @Getter
 @Setter

@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author deepraining
- * @since 2023-08-16
+ * @since 
  */
 public interface AdminRoleMenuRelationMapper extends BaseMapper<AdminRoleMenuRelation> {
 

@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
  * 文章 服务实现类
  *
  * @author deepraining
- * @since 2023-08-17
+ * @since
  */
 @Service
 @DS("master3")
-public class ArticleMpServiceImp extends ServiceImpl<ArticleMapper, Article>
+public class ArticleMpServiceImpl extends ServiceImpl<ArticleMapper, Article>
     implements ArticleMpService {}

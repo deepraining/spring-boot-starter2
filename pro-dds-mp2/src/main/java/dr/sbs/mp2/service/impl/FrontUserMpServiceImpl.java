@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
  * 前端用户 服务实现类
  *
  * @author deepraining
- * @since 2023-08-17
+ * @since
  */
 @Service
-public class FrontUserMpServiceImp extends ServiceImpl<FrontUserMapper, FrontUser>
+public class FrontUserMpServiceImpl extends ServiceImpl<FrontUserMapper, FrontUser>
     implements FrontUserMpService {}

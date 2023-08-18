@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author deepraining
- * @since 2023-08-16
+ * @since 
  */
 @Service
-public class WxPayTransMpServiceImp extends ServiceImpl<WxPayTransMapper, WxPayTrans> implements WxPayTransMpService {
+public class WxPayTransMpServiceImpl extends ServiceImpl<WxPayTransMapper, WxPayTrans> implements WxPayTransMpService {
 
 }

@@ -7,6 +7,6 @@ import dr.sbs.mp2.entity.FrontUser;
  * 前端用户 Mapper 接口
  *
  * @author deepraining
- * @since 2023-08-17
+ * @since
  */
 public interface FrontUserMapper extends BaseMapper<FrontUser> {}

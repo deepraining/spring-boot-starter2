@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author deepraining
- * @since 2023-08-16
+ * @since 
  */
 @Service
-public class WxUserMpServiceImp extends ServiceImpl<WxUserMapper, WxUser> implements WxUserMpService {
+public class WxUserMpServiceImpl extends ServiceImpl<WxUserMapper, WxUser> implements WxUserMpService {
 
 }

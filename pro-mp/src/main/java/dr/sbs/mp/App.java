@@ -20,6 +20,7 @@ public class App {
             builder -> {
               builder
                   .author("deepraining") // 设置作者
+                  .commentDate("") // 不显示时间
                   .disableOpenDir() // 不打开文件夹
                   .enableSwagger() // 开启 swagger 模式
                   .fileOverride() // 覆盖已生成文件
@@ -44,7 +45,7 @@ public class App {
                   .serviceBuilder()
                   .enableFileOverride()
                   .formatServiceFileName("%sMpService")
-                  .formatServiceImplFileName("%sMpServiceImp")
+                  .formatServiceImplFileName("%sMpServiceImpl")
                   .entityBuilder()
                   .enableLombok()
                   .enableFileOverride();

@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author deepraining
- * @since 2023-08-16
+ * @since 
  */
 @Service
-public class AdminRoleResourceRelationMpServiceImp extends ServiceImpl<AdminRoleResourceRelationMapper, AdminRoleResourceRelation> implements AdminRoleResourceRelationMpService {
+public class AdminRoleResourceRelationMpServiceImpl extends ServiceImpl<AdminRoleResourceRelationMapper, AdminRoleResourceRelation> implements AdminRoleResourceRelationMpService {
 
 }

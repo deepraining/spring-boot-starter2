@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author deepraining
- * @since 2023-08-16
+ * @since 
  */
 public interface AdminResourceCategoryMpService extends IService<AdminResourceCategory> {
 

@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author deepraining
- * @since 2023-08-16
+ * @since 
  */
 @Service
-public class ArticleMpServiceImp extends ServiceImpl<ArticleMapper, Article> implements ArticleMpService {
+public class ArticleMpServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleMpService {
 
 }

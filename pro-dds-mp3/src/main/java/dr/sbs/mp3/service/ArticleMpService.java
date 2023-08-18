@@ -7,6 +7,6 @@ import dr.sbs.mp3.entity.Article;
  * 文章 服务类
  *
  * @author deepraining
- * @since 2023-08-17
+ * @since
  */
 public interface ArticleMpService extends IService<Article> {}
