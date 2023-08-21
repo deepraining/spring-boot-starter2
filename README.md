@@ -11,7 +11,7 @@
 ## 其他说明
 
 - 因为 `mybatis-plus-generator` 源代码里的模版文件是 `CRLF` 换行符，所以复制到项目中统一为 `LF` 换行符
-- MySql多数据源项目中，非 `primary` 数据源的代码，需要添加 `@DS("non-primary")`，如果使用 `mybatis-plus-generator` 生成代码，就需要修改`mapper`与`service`模型文件，[示例查看](./pro-dds-mp3/src/main/resources/tpl_modify) 
+- MySql多数据源项目中，非 `primary` 数据源的代码，需要添加 `@DS("non-primary")`，如果使用 `mybatis-plus-generator` 生成代码，就需要修改`mapper`与`service`模版文件，[示例查看](./pro-dds-mp3/src/main/resources/tpl_modify) 
 
 #### 在 MySql 中，如果数据表名或字段名是关键字，可以如下设置
 
@@ -35,7 +35,7 @@ mybatis-plus:
 })
 ```
 
-修改`entity.java.ftl`模型文件中的`@TableField`（`keepGlobalFormat`默认为`false`，不使用全局配置）
+修改`entity.java.ftl`模版文件中的`@TableField`（`keepGlobalFormat`默认为`false`，不使用全局配置）
 
 ```
 @TableField(...)
