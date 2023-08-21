@@ -1,12 +1,16 @@
 package dr.sbs.mp2.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import dr.sbs.mp2.entity.FrontUser;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
+ * <p>
  * 前端用户 Mapper 接口
+ * </p>
  *
  * @author deepraining
- * @since
+ * @since 
  */
-public interface FrontUserMapper extends BaseMapper<FrontUser> {}
+public interface FrontUserMapper extends BaseMapper<FrontUser> {
+
+}
