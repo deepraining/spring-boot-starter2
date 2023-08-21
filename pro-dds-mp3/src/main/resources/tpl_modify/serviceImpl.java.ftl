@@ -1,5 +1,6 @@
 package ${package.ServiceImpl};
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import ${package.Entity}.${entity};
 import ${package.Mapper}.${table.mapperName};
 <#if table.serviceInterface>
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
  * @since ${date}
  */
 @Service
+@DS("master3")
 <#if kotlin>
 open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>()<#if table.serviceInterface>, ${table.serviceName}</#if> {
 

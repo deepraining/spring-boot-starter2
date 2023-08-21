@@ -1,5 +1,6 @@
 package dr.sbs.mp.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -26,6 +27,7 @@ public class WxPayTrans implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("支付流水号（微信支付回调的 transaction_id 字段）")
+    @TableId("trans_id")
     private String transId;
 
     @ApiModelProperty("业务单据号（微信支付回调的 out_trade_no 字段）")

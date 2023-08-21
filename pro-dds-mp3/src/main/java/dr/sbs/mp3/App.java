@@ -54,11 +54,11 @@ public class App {
             builder -> {
               // 不生成controller
               builder
-                  .entity("/templates/entity.java")
-                  .service("/templates/service.java")
-                  .serviceImpl("/tpl/serviceImpl.java")
-                  .mapper("/tpl/mapper.java")
-                  .xml("/templates/mapper.xml")
+                  .entity("/tpl/entity.java")
+                  .service("/tpl/service.java")
+                  .serviceImpl("/tpl_modify/serviceImpl.java")
+                  .mapper("/tpl_modify/mapper.java")
+                  .xml("/tpl/mapper.xml")
                   .controller("")
                   .build();
             })

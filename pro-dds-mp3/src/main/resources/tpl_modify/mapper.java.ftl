@@ -1,5 +1,6 @@
 package ${package.Mapper};
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import ${package.Entity}.${entity};
 import ${superMapperClassPackage};
 <#if mapperAnnotationClass??>
@@ -14,6 +15,7 @@ import ${mapperAnnotationClass.name};
  * @author ${author}
  * @since ${date}
  */
+@DS("master3")
 <#if mapperAnnotationClass??>
 @${mapperAnnotationClass.simpleName}
 </#if>
