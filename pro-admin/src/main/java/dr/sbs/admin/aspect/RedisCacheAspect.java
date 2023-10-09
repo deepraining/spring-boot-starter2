@@ -2,14 +2,13 @@ package dr.sbs.admin.aspect;
 
 import dr.sbs.admin.annotation.CacheException;
 import java.lang.reflect.Method;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +16,8 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @Order(2)
+@Slf4j
 public class RedisCacheAspect {
-  private static Logger LOGGER = LoggerFactory.getLogger(RedisCacheAspect.class);
-
   @Pointcut("execution(public * dr.sbs.admin.service.*CacheService.*(..))")
   public void cacheAspect() {}
 
@@ -36,7 +34,7 @@ public class RedisCacheAspect {
       if (method.isAnnotationPresent(CacheException.class)) {
         throw throwable;
       } else {
-        LOGGER.error(throwable.getMessage());
+        log.error(throwable.getMessage());
       }
     }
     return result;

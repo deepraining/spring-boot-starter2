@@ -23,8 +23,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -42,8 +41,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 /** AdminUserService实现类 */
 @Service
+@Slf4j
 public class AdminUserServiceImpl implements AdminUserService {
-  private static final Logger LOGGER = LoggerFactory.getLogger(AdminUserServiceImpl.class);
   @Autowired private JwtTokenUtil jwtTokenUtil;
   @Autowired private PasswordEncoder passwordEncoder;
   @Autowired private AdminUserMpService userMpService;
@@ -106,7 +105,7 @@ public class AdminUserServiceImpl implements AdminUserService {
       updateLoginTimeByUsername(username);
       insertLoginLog(username);
     } catch (AuthenticationException e) {
-      LOGGER.warn("登录异常:{}", e.getMessage());
+      log.warn("登录异常:{}", e.getMessage());
     }
     return token;
   }

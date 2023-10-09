@@ -8,8 +8,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,8 +18,8 @@ import org.springframework.security.core.userdetails.UserDetails;
  * {"sub":"wang","created":1489079981393,"exp":1489684781} signature的生成算法：
  * HMACSHA512(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)
  */
+@Slf4j
 public class JwtTokenUtil {
-  private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
   private static final String CLAIM_KEY_USERNAME = "sub";
   private static final String CLAIM_KEY_CREATED = "created";
 
@@ -48,7 +47,7 @@ public class JwtTokenUtil {
     try {
       claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     } catch (Exception e) {
-      LOGGER.info("JWT格式验证失败:{}", token);
+      log.info("JWT格式验证失败:{}", token);
     }
     return claims;
   }
