@@ -1,10 +1,23 @@
 package dr.sbs.admin.config;
 
+import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import java.math.BigInteger;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -18,11 +31,19 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 /** Redis配置类 */
 @EnableCaching
 @Configuration
 public class RedisConfig extends CachingConfigurerSupport {
+  // Date格式化字符串
+  private static final String DATE_FORMAT = DatePattern.NORM_DATE_PATTERN; // yyyy-MM-dd
+  // DateTime格式化字符串
+  private static final String DATETIME_FORMAT =
+      DatePattern.NORM_DATETIME_PATTERN; // yyyy-MM-dd HH:mm:ss
+  // Time格式化字符串
+  private static final String TIME_FORMAT = DatePattern.NORM_TIME_PATTERN; // HH:mm:ss
 
   @Bean
   public RedisTemplate<String, Object> redisTemplate(
@@ -43,7 +64,29 @@ public class RedisConfig extends CachingConfigurerSupport {
     // 创建JSON序列化器
     Jackson2JsonRedisSerializer<Object> serializer =
         new Jackson2JsonRedisSerializer<>(Object.class);
-    ObjectMapper objectMapper = new ObjectMapper();
+
+    Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+    builder
+        .serializerByType(Long.class, ToStringSerializer.instance)
+        .serializerByType(BigInteger.class, ToStringSerializer.instance)
+        .modulesToInstall(new JavaTimeModule())
+        .serializerByType(
+            LocalDateTime.class,
+            new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATETIME_FORMAT)))
+        .serializerByType(
+            LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(DATE_FORMAT)))
+        .serializerByType(
+            LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(TIME_FORMAT)))
+        .deserializerByType(
+            LocalDateTime.class,
+            new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DATETIME_FORMAT)))
+        .deserializerByType(
+            LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(DATE_FORMAT)))
+        .deserializerByType(
+            LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(TIME_FORMAT)));
+
+    ObjectMapper objectMapper = builder.build();
+
     objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
     objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
     objectMapper.registerModule(new JavaTimeModule());
