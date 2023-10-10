@@ -3,6 +3,7 @@ package dr.sbs.admin.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.time.Duration;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -45,6 +46,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
     objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+    objectMapper.registerModule(new JavaTimeModule());
     serializer.setObjectMapper(objectMapper);
     return serializer;
   }

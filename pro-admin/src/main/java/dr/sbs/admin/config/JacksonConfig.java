@@ -1,6 +1,7 @@
 package dr.sbs.admin.config;
 
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.math.BigInteger;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ public class JacksonConfig {
       public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
         jacksonObjectMapperBuilder.serializerByType(Long.class, ToStringSerializer.instance);
         jacksonObjectMapperBuilder.serializerByType(BigInteger.class, ToStringSerializer.instance);
+        jacksonObjectMapperBuilder.modulesToInstall(new JavaTimeModule());
       }
     };
   }
