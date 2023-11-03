@@ -132,7 +132,7 @@ public class AdminController {
   @ApiOperation("获取指定用户信息")
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ResponseBody
-  public CommonResult<AdminUser> getItem(@PathVariable Long id) {
+  public CommonResult<AdminUser> getItem(@PathVariable Integer id) {
     AdminUser adminUser = userService.getItem(id);
     return CommonResult.success(ResultFilter.filterAdminUser(adminUser));
   }
@@ -141,7 +141,7 @@ public class AdminController {
   @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> update(
-      @PathVariable Long id,
+      @PathVariable Integer id,
       @RequestBody @Validated AdminUser adminUser,
       BindingResult bindingResult) {
     boolean result = userService.update(id, adminUser);
@@ -174,7 +174,7 @@ public class AdminController {
   @ApiOperation("删除指定用户信息")
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
   @ResponseBody
-  public CommonResult<Integer> delete(@PathVariable Long id) {
+  public CommonResult<Integer> delete(@PathVariable Integer id) {
     boolean result = userService.delete(id);
     if (result) {
       return CommonResult.success(1);
@@ -186,7 +186,7 @@ public class AdminController {
   @RequestMapping(value = "/updateStatus/{id}", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> updateStatus(
-      @PathVariable Long id, @RequestParam(value = "status") Integer status) {
+      @PathVariable Integer id, @RequestParam(value = "status") Integer status) {
     AdminUser adminUser = new AdminUser();
     adminUser.setStatus(status);
     boolean result = userService.update(id, adminUser);
@@ -200,7 +200,7 @@ public class AdminController {
   @RequestMapping(value = "/role/update", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> updateRole(
-      @RequestParam("userId") Long userId, @RequestParam("roleIds") List<Long> roleIds) {
+      @RequestParam("userId") Integer userId, @RequestParam("roleIds") List<Integer> roleIds) {
     boolean result = userService.updateRole(userId, roleIds);
     if (result) {
       return CommonResult.success(1);
@@ -211,7 +211,7 @@ public class AdminController {
   @ApiOperation("获取指定用户的角色")
   @RequestMapping(value = "/role/{userId}", method = RequestMethod.GET)
   @ResponseBody
-  public CommonResult<List<AdminRole>> getRoleList(@PathVariable Long userId) {
+  public CommonResult<List<AdminRole>> getRoleList(@PathVariable Integer userId) {
     List<AdminRole> roleList = userService.getRoleList(userId);
     return CommonResult.success(roleList);
   }

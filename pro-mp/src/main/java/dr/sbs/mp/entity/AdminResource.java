@@ -27,7 +27,7 @@ public class AdminResource implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     @ApiModelProperty("资源名称")
     private String name;
@@ -39,7 +39,7 @@ public class AdminResource implements Serializable {
     private String description;
 
     @ApiModelProperty("资源分类ID")
-    private Long categoryId;
+    private Integer categoryId;
 
     @ApiModelProperty("状态：-1 删除、1 启用")
     private Integer status;

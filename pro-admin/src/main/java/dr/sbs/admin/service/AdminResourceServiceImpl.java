@@ -21,7 +21,7 @@ public class AdminResourceServiceImpl implements AdminResourceService {
   }
 
   @Override
-  public boolean update(Long id, AdminResource adminResource) {
+  public boolean update(Integer id, AdminResource adminResource) {
     adminResource.setId(id);
     boolean result = resourceMpService.updateById(adminResource);
     userCacheService.delResourceListByResource(id);
@@ -29,12 +29,12 @@ public class AdminResourceServiceImpl implements AdminResourceService {
   }
 
   @Override
-  public AdminResource getItem(Long id) {
+  public AdminResource getItem(Integer id) {
     return resourceMpService.getById(id);
   }
 
   @Override
-  public boolean delete(Long id) {
+  public boolean delete(Integer id) {
     AdminResource adminResource = new AdminResource();
     adminResource.setId(id);
     adminResource.setStatus(-1);
@@ -45,7 +45,7 @@ public class AdminResourceServiceImpl implements AdminResourceService {
 
   @Override
   public Page<AdminResource> list(
-      Long categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum) {
+      Integer categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum) {
     Page<AdminResource> page = new Page<>();
     page.setCurrent(pageNum);
     page.setSize(pageSize);

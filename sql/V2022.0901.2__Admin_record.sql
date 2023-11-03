@@ -1,10 +1,10 @@
 -- ----------------------------
--- 通过 /admin/register 接口，注册manager用户（可以自己设定密码，可以用 postman 或浏览器操作）
--- username: manager, password: starter123456, nickname: 管理员
--- 浏览器脚本：fetch('/admin/register', {method: 'post', headers: {'content-type': 'application/json'}, body: JSON.stringify({username: 'manager', password: 'starter123456', nickname: '管理员'})}).then(res => res.json()).then(console.log);
+-- 通过 /admin/register 接口，注册root用户（可以自己设定密码，可以用 postman 或浏览器操作）
+-- username: root, password: starter123456, nickname: 管理员
+-- 浏览器脚本：fetch('/admin/register', {method: 'post', headers: {'content-type': 'application/json'}, body: JSON.stringify({username: 'root', password: 'starter123456', nickname: '管理员'})}).then(res => res.json()).then(console.log);
 --
 -- 然后更新id（如果不是下面的id）
--- UPDATE `admin_user` set id=1 WHERE username='manager';
+-- UPDATE `admin_user` set id=1 WHERE username='root';
 -- ----------------------------
 
 INSERT INTO `admin_role` VALUES ('5', '超级管理员', '拥有所有查看和操作功能', '1', '0', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

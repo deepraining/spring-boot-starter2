@@ -10,17 +10,17 @@ public interface AdminResourceService {
   boolean create(AdminResource adminResource);
 
   /** 修改资源 */
-  boolean update(Long id, AdminResource adminResource);
+  boolean update(Integer id, AdminResource adminResource);
 
   /** 获取资源详情 */
-  AdminResource getItem(Long id);
+  AdminResource getItem(Integer id);
 
   /** 删除资源 */
-  boolean delete(Long id);
+  boolean delete(Integer id);
 
   /** 分页查询资源 */
   Page<AdminResource> list(
-      Long categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum);
+      Integer categoryId, String nameKeyword, String urlKeyword, Integer pageSize, Integer pageNum);
 
   /** 查询全部资源 */
   List<AdminResource> listAll();

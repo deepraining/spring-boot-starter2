@@ -27,13 +27,13 @@ public class AdminRoleResourceRelation implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     @ApiModelProperty("角色ID")
-    private Long roleId;
+    private Integer roleId;
 
     @ApiModelProperty("资源ID")
-    private Long resourceId;
+    private Integer resourceId;
 
     @ApiModelProperty("状态：-1 删除、1 启用")
     private Integer status;

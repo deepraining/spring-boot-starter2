@@ -26,13 +26,13 @@ public class AdminResourceCategoryServiceImpl implements AdminResourceCategorySe
   }
 
   @Override
-  public boolean update(Long id, AdminResourceCategory adminResourceCategory) {
+  public boolean update(Integer id, AdminResourceCategory adminResourceCategory) {
     adminResourceCategory.setId(id);
     return resourceCategoryMpService.updateById(adminResourceCategory);
   }
 
   @Override
-  public boolean delete(Long id) {
+  public boolean delete(Integer id) {
     AdminResourceCategory adminResourceCategory = new AdminResourceCategory();
     adminResourceCategory.setId(id);
     adminResourceCategory.setStatus(-1);

@@ -44,7 +44,7 @@ public class AdminMenuController {
   @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> update(
-      @PathVariable Long id,
+      @PathVariable Integer id,
       @RequestBody @Validated AdminMenu adminMenu,
       BindingResult bindingResult) {
     boolean result = menuService.update(id, adminMenu);
@@ -58,7 +58,7 @@ public class AdminMenuController {
   @ApiOperation("根据ID获取菜单详情")
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ResponseBody
-  public CommonResult<AdminMenu> getItem(@PathVariable Long id) {
+  public CommonResult<AdminMenu> getItem(@PathVariable Integer id) {
     AdminMenu adminMenu = menuService.getItem(id);
     return CommonResult.success(adminMenu);
   }
@@ -66,7 +66,7 @@ public class AdminMenuController {
   @ApiOperation("根据ID删除后台菜单")
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
   @ResponseBody
-  public CommonResult<Integer> delete(@PathVariable Long id) {
+  public CommonResult<Integer> delete(@PathVariable Integer id) {
     boolean result = menuService.delete(id);
     if (result) {
       return CommonResult.success(1);
@@ -79,7 +79,7 @@ public class AdminMenuController {
   @RequestMapping(value = "/list/{parentId}", method = RequestMethod.GET)
   @ResponseBody
   public CommonResult<CommonPage<AdminMenu>> list(
-      @PathVariable Long parentId,
+      @PathVariable Integer parentId,
       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
     Page<AdminMenu> menuList = menuService.list(parentId, pageSize, pageNum);
@@ -98,7 +98,7 @@ public class AdminMenuController {
   @RequestMapping(value = "/updateHidden/{id}", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> updateHidden(
-      @PathVariable Long id, @RequestParam("hidden") Integer hidden) {
+      @PathVariable Integer id, @RequestParam("hidden") Integer hidden) {
     boolean result = menuService.updateHidden(id, hidden);
     if (result) {
       return CommonResult.success(1);

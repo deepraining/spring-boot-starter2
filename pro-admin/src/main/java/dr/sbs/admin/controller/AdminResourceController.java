@@ -46,7 +46,7 @@ public class AdminResourceController {
   @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> update(
-      @PathVariable Long id,
+      @PathVariable Integer id,
       @RequestBody @Validated AdminResource adminResource,
       BindingResult bindingResult) {
     boolean result = resourceService.update(id, adminResource);
@@ -61,7 +61,7 @@ public class AdminResourceController {
   @ApiOperation("根据ID获取资源详情")
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ResponseBody
-  public CommonResult<AdminResource> getItem(@PathVariable Long id) {
+  public CommonResult<AdminResource> getItem(@PathVariable Integer id) {
     AdminResource adminResource = resourceService.getItem(id);
     return CommonResult.success(adminResource);
   }
@@ -69,7 +69,7 @@ public class AdminResourceController {
   @ApiOperation("根据ID删除后台资源")
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
   @ResponseBody
-  public CommonResult<Integer> delete(@PathVariable Long id) {
+  public CommonResult<Integer> delete(@PathVariable Integer id) {
     boolean result = resourceService.delete(id);
     dynamicSecurityMetadataSource.clearDataSource();
     if (result) {
@@ -83,7 +83,7 @@ public class AdminResourceController {
   @RequestMapping(value = "/list", method = RequestMethod.GET)
   @ResponseBody
   public CommonResult<CommonPage<AdminResource>> list(
-      @RequestParam(required = false) Long categoryId,
+      @RequestParam(required = false) Integer categoryId,
       @RequestParam(required = false) String nameKeyword,
       @RequestParam(required = false) String urlKeyword,
       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,

@@ -44,7 +44,7 @@ public class AdminRoleController {
   @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> update(
-      @PathVariable Long id, @RequestBody @Validated AdminRole role, BindingResult bindingResult) {
+      @PathVariable Integer id, @RequestBody @Validated AdminRole role, BindingResult bindingResult) {
     boolean result = roleService.update(id, role);
     if (result) {
       return CommonResult.success(1);
@@ -55,7 +55,7 @@ public class AdminRoleController {
   @ApiOperation("批量删除角色")
   @RequestMapping(value = "/delete", method = RequestMethod.POST)
   @ResponseBody
-  public CommonResult<Integer> delete(@RequestParam("ids") List<Long> ids) {
+  public CommonResult<Integer> delete(@RequestParam("ids") List<Integer> ids) {
     boolean result = roleService.delete(ids);
     if (result) {
       return CommonResult.success(1);
@@ -86,7 +86,7 @@ public class AdminRoleController {
   @RequestMapping(value = "/updateStatus/{id}", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> updateStatus(
-      @PathVariable Long id, @RequestParam(value = "status") Integer status) {
+      @PathVariable Integer id, @RequestParam(value = "status") Integer status) {
     AdminRole adminRole = new AdminRole();
     adminRole.setStatus(status);
     boolean result = roleService.update(id, adminRole);
@@ -99,7 +99,7 @@ public class AdminRoleController {
   @ApiOperation("获取角色相关菜单")
   @RequestMapping(value = "/listMenu/{roleId}", method = RequestMethod.GET)
   @ResponseBody
-  public CommonResult<List<AdminMenu>> listMenu(@PathVariable Long roleId) {
+  public CommonResult<List<AdminMenu>> listMenu(@PathVariable Integer roleId) {
     List<AdminMenu> roleList = roleService.listMenu(roleId);
     return CommonResult.success(roleList);
   }
@@ -107,7 +107,7 @@ public class AdminRoleController {
   @ApiOperation("获取角色相关资源")
   @RequestMapping(value = "/listResource/{roleId}", method = RequestMethod.GET)
   @ResponseBody
-  public CommonResult<List<AdminResource>> listResource(@PathVariable Long roleId) {
+  public CommonResult<List<AdminResource>> listResource(@PathVariable Integer roleId) {
     List<AdminResource> roleList = roleService.listResource(roleId);
     return CommonResult.success(roleList);
   }
@@ -116,7 +116,7 @@ public class AdminRoleController {
   @RequestMapping(value = "/allocMenu", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> allocMenu(
-      @RequestParam Long roleId, @RequestParam List<Long> menuIds) {
+      @RequestParam Integer roleId, @RequestParam List<Integer> menuIds) {
     boolean result = roleService.allocMenu(roleId, menuIds);
     return CommonResult.success(1);
   }
@@ -125,7 +125,7 @@ public class AdminRoleController {
   @RequestMapping(value = "/allocResource", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> allocResource(
-      @RequestParam Long roleId, @RequestParam List<Long> resourceIds) {
+      @RequestParam Integer roleId, @RequestParam List<Integer> resourceIds) {
     boolean result = roleService.allocResource(roleId, resourceIds);
     return CommonResult.success(1);
   }

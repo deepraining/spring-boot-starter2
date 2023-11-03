@@ -32,13 +32,13 @@ public class AdminRoleServiceImpl implements AdminRoleService {
   }
 
   @Override
-  public boolean update(Long id, AdminRole role) {
+  public boolean update(Integer id, AdminRole role) {
     role.setId(id);
     return roleMpService.updateById(role);
   }
 
   @Override
-  public boolean delete(List<Long> ids) {
+  public boolean delete(List<Integer> ids) {
     QueryWrapper<AdminRole> queryWrapper = new QueryWrapper<>();
     queryWrapper.in("id", ids);
     AdminRole adminRole = new AdminRole();
@@ -69,17 +69,17 @@ public class AdminRoleServiceImpl implements AdminRoleService {
   }
 
   @Override
-  public List<AdminMenu> listMenu(Long roleId) {
+  public List<AdminMenu> listMenu(Integer roleId) {
     return roleDao.getMenuList(roleId);
   }
 
   @Override
-  public List<AdminResource> listResource(Long roleId) {
+  public List<AdminResource> listResource(Integer roleId) {
     return roleDao.getResourceList(roleId);
   }
 
   @Override
-  public boolean allocMenu(Long roleId, List<Long> menuIds) {
+  public boolean allocMenu(Integer roleId, List<Integer> menuIds) {
     // 先删除原有关系
     QueryWrapper<AdminRoleMenuRelation> queryWrapper = new QueryWrapper<>();
     queryWrapper.eq("role_id", roleId);
@@ -87,7 +87,7 @@ public class AdminRoleServiceImpl implements AdminRoleService {
     adminRoleMenuRelation.setStatus(-1);
     roleMenuRelationMpService.update(adminRoleMenuRelation, queryWrapper);
     // 批量插入新关系
-    for (Long menuId : menuIds) {
+    for (Integer menuId : menuIds) {
       AdminRoleMenuRelation relation = new AdminRoleMenuRelation();
       relation.setRoleId(roleId);
       relation.setMenuId(menuId);
@@ -97,7 +97,7 @@ public class AdminRoleServiceImpl implements AdminRoleService {
   }
 
   @Override
-  public boolean allocResource(Long roleId, List<Long> resourceIds) {
+  public boolean allocResource(Integer roleId, List<Integer> resourceIds) {
     // 先删除原有关系
     QueryWrapper<AdminRoleResourceRelation> queryWrapper = new QueryWrapper<>();
     queryWrapper.eq("role_id", roleId);
@@ -105,7 +105,7 @@ public class AdminRoleServiceImpl implements AdminRoleService {
     adminRoleResourceRelation.setStatus(-1);
     roleResourceRelationMpService.update(adminRoleResourceRelation, queryWrapper);
     // 批量插入新关系
-    for (Long resourceId : resourceIds) {
+    for (Integer resourceId : resourceIds) {
       AdminRoleResourceRelation relation = new AdminRoleResourceRelation();
       relation.setRoleId(roleId);
       relation.setResourceId(resourceId);

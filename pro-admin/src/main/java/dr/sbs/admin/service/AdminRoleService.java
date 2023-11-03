@@ -13,10 +13,10 @@ public interface AdminRoleService {
   boolean create(AdminRole role);
 
   /** 修改角色信息 */
-  boolean update(Long id, AdminRole role);
+  boolean update(Integer id, AdminRole role);
 
   /** 批量删除角色 */
-  boolean delete(List<Long> ids);
+  boolean delete(List<Integer> ids);
 
   /** 获取所有角色列表 */
   List<AdminRole> list();
@@ -25,16 +25,16 @@ public interface AdminRoleService {
   Page<AdminRole> list(String keyword, Integer pageSize, Integer pageNum);
 
   /** 获取角色相关菜单 */
-  List<AdminMenu> listMenu(Long roleId);
+  List<AdminMenu> listMenu(Integer roleId);
 
   /** 获取角色相关资源 */
-  List<AdminResource> listResource(Long roleId);
+  List<AdminResource> listResource(Integer roleId);
 
   /** 给角色分配菜单 */
   @Transactional
-  boolean allocMenu(Long roleId, List<Long> menuIds);
+  boolean allocMenu(Integer roleId, List<Integer> menuIds);
 
   /** 给角色分配资源 */
   @Transactional
-  boolean allocResource(Long roleId, List<Long> resourceIds);
+  boolean allocResource(Integer roleId, List<Integer> resourceIds);
 }

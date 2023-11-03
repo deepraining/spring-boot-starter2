@@ -57,7 +57,7 @@
     GROUP BY
       res.id
   </select>
-  <select id="getAdminIdList" resultType="java.lang.Long">
+  <select id="getAdminIdList" resultType="java.lang.Integer">
     SELECT
       DISTINCT urr.user_id
     FROM

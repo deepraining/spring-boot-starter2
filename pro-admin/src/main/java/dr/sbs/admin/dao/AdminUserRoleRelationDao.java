@@ -13,14 +13,14 @@ public interface AdminUserRoleRelationDao {
   int insertList(@Param("list") List<AdminUserRoleRelation> adminRoleRelationList);
 
   /** 获取用于所有角色 */
-  List<AdminRole> getRoleList(@Param("userId") Long userId);
+  List<AdminRole> getRoleList(@Param("userId") Integer userId);
 
   /** 获取用户所有可访问菜单 */
-  List<AdminMenu> getMenuList(@Param("userId") Long userId);
+  List<AdminMenu> getMenuList(@Param("userId") Integer userId);
 
   /** 获取用户所有可访问资源 */
-  List<AdminResource> getResourceList(@Param("userId") Long userId);
+  List<AdminResource> getResourceList(@Param("userId") Integer userId);
 
   /** 获取资源相关用户ID列表 */
-  List<Long> getAdminIdList(@Param("resourceId") Long resourceId);
+  List<Integer> getAdminIdList(@Param("resourceId") Integer resourceId);
 }

@@ -27,11 +27,11 @@ public class AdminUserRoleRelation implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
-    private Long userId;
+    private Integer userId;
 
-    private Long roleId;
+    private Integer roleId;
 
     @ApiModelProperty("状态：-1 删除、1 启用")
     private Integer status;

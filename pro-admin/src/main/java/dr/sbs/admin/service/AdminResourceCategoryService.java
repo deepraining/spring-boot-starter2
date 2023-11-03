@@ -13,8 +13,8 @@ public interface AdminResourceCategoryService {
   boolean create(AdminResourceCategory adminResourceCategory);
 
   /** 修改资源分类 */
-  boolean update(Long id, AdminResourceCategory adminResourceCategory);
+  boolean update(Integer id, AdminResourceCategory adminResourceCategory);
 
   /** 删除资源分类 */
-  boolean delete(Long id);
+  boolean delete(Integer id);
 }

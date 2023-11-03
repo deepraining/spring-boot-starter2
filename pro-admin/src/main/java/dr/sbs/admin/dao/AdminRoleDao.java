@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 /** 后台用户角色自定义Dao */
 public interface AdminRoleDao {
-  List<AdminMenu> getMenuList(@Param("roleId") Long roleId);
+  List<AdminMenu> getMenuList(@Param("roleId") Integer roleId);
 
-  List<AdminResource> getResourceList(@Param("roleId") Long roleId);
+  List<AdminResource> getResourceList(@Param("roleId") Integer roleId);
 }

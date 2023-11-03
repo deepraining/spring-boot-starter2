@@ -21,7 +21,7 @@ CREATE TABLE `wx_user` (
   INDEX `wx_user_idx_union_id`(`union_id`),
   INDEX `wx_user_idx_mini_open_id`(`mini_open_id`),
   INDEX `wx_user_idx_mp_open_id`(`mp_open_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='微信用户';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='微信用户';
 
 CREATE TABLE `wx_pay_trans` (
   `trans_id` varchar(50) NOT NULL COMMENT '支付流水号（微信支付回调的 transaction_id 字段）',
@@ -36,4 +36,4 @@ CREATE TABLE `wx_pay_trans` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`trans_id`),
   INDEX `wx_pay_trans_idx_bill_no`(`bill_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='微信支付流水';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='微信支付流水';

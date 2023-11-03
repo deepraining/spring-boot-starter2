@@ -39,19 +39,19 @@ public class AdminMenuServiceImpl implements AdminMenuService {
   }
 
   @Override
-  public boolean update(Long id, AdminMenu adminMenu) {
+  public boolean update(Integer id, AdminMenu adminMenu) {
     adminMenu.setId(id);
     updateLevel(adminMenu);
     return menuMpService.updateById(adminMenu);
   }
 
   @Override
-  public AdminMenu getItem(Long id) {
+  public AdminMenu getItem(Integer id) {
     return menuMpService.getById(id);
   }
 
   @Override
-  public boolean delete(Long id) {
+  public boolean delete(Integer id) {
     AdminMenu adminMenu = new AdminMenu();
     adminMenu.setId(id);
     adminMenu.setStatus(-1);
@@ -60,7 +60,7 @@ public class AdminMenuServiceImpl implements AdminMenuService {
   }
 
   @Override
-  public Page<AdminMenu> list(Long parentId, Integer pageSize, Integer pageNum) {
+  public Page<AdminMenu> list(Integer parentId, Integer pageSize, Integer pageNum) {
     Page<AdminMenu> page = new Page<>();
     page.setCurrent(pageNum);
     page.setSize(pageSize);
@@ -79,14 +79,14 @@ public class AdminMenuServiceImpl implements AdminMenuService {
     List<AdminMenu> menuList = menuMpService.list(queryWrapper);
     List<AdminMenuNode> result =
         menuList.stream()
-            .filter(menu -> menu.getParentId().equals(0L))
+            .filter(menu -> menu.getParentId().equals(0))
             .map(menu -> convertMenuNode(menu, menuList))
             .collect(Collectors.toList());
     return result;
   }
 
   @Override
-  public boolean updateHidden(Long id, Integer hidden) {
+  public boolean updateHidden(Integer id, Integer hidden) {
     AdminMenu adminMenu = new AdminMenu();
     adminMenu.setId(id);
     adminMenu.setHidden(hidden);

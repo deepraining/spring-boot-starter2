@@ -36,29 +36,29 @@ public interface AdminUserService {
   String refreshToken(String oldToken);
 
   /** 根据用户id获取用户 */
-  AdminUser getItem(Long id);
+  AdminUser getItem(Integer id);
 
   /** 根据用户名或昵称分页查询用户 */
   Page<AdminUser> list(String keyword, Integer pageSize, Integer pageNum);
 
   /** 修改指定用户信息 */
-  boolean update(Long id, AdminUser adminUser);
+  boolean update(Integer id, AdminUser adminUser);
 
   /** 删除指定用户 */
-  boolean delete(Long id);
+  boolean delete(Integer id);
 
   /** 修改用户角色关系 */
   @Transactional
-  boolean updateRole(Long userId, List<Long> roleIds);
+  boolean updateRole(Integer userId, List<Integer> roleIds);
 
   /** 获取用户对于角色 */
-  List<AdminRole> getRoleList(Long userId);
+  List<AdminRole> getRoleList(Integer userId);
 
   /** 获取指定用户的可访问资源 */
-  List<AdminResource> getResourceList(Long userId);
+  List<AdminResource> getResourceList(Integer userId);
 
   /** 根据管理员ID获取对应菜单 */
-  List<AdminMenu> getMenuList(Long userId);
+  List<AdminMenu> getMenuList(Integer userId);
 
   /** 修改密码 */
   int updatePassword(AdminUpdatePasswordParam updatePasswordParam);

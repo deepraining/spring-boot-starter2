@@ -27,7 +27,7 @@ public class AdminResourceCategory implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     @ApiModelProperty("分类名称")
     private String name;

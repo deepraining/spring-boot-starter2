@@ -9,7 +9,7 @@ CREATE TABLE `front_user` (
   PRIMARY KEY (`id`),
   INDEX `front_user_idx_username` (`username`),
   INDEX `front_user_idx_email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='前端用户';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='前端用户';
 
 CREATE TABLE `article` (
   `id` bigint(20) NOT NULL,
@@ -24,4 +24,4 @@ CREATE TABLE `article` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   INDEX `article_idx_front_user_id` (`front_user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文章';

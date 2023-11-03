@@ -22,12 +22,12 @@ public class AdminUserCacheServiceImpl implements AdminUserCacheService {
 
   private String redisDatabase = "sbsAdmin";
   // 24 hours
-  private Long redisExpire = 86400L;
+  private Integer redisExpire = 86400;
   private String redisKeyAdmin = "admin";
   private String redisKeyResourceList = "resourceList";
 
   @Override
-  public void delUser(Long userId) {
+  public void delUser(Integer userId) {
     AdminUser user = userService.getItem(userId);
     if (user != null) {
       String key = redisDatabase + ":" + redisKeyAdmin + ":" + user.getUsername();
@@ -36,13 +36,13 @@ public class AdminUserCacheServiceImpl implements AdminUserCacheService {
   }
 
   @Override
-  public void delResourceList(Long userId) {
+  public void delResourceList(Integer userId) {
     String key = redisDatabase + ":" + redisKeyResourceList + ":" + userId;
     redisService.del(key);
   }
 
   @Override
-  public void delResourceListByRole(Long roleId) {
+  public void delResourceListByRole(Integer roleId) {
     QueryWrapper<AdminUserRoleRelation> queryWrapper = new QueryWrapper<>();
     queryWrapper.eq("role_id", roleId);
     queryWrapper.eq("status", 1);
@@ -58,7 +58,7 @@ public class AdminUserCacheServiceImpl implements AdminUserCacheService {
   }
 
   @Override
-  public void delResourceListByRoleIds(List<Long> roleIds) {
+  public void delResourceListByRoleIds(List<Integer> roleIds) {
     QueryWrapper<AdminUserRoleRelation> queryWrapper = new QueryWrapper<>();
     queryWrapper.in("role_id", roleIds);
     queryWrapper.eq("status", 1);
@@ -74,8 +74,8 @@ public class AdminUserCacheServiceImpl implements AdminUserCacheService {
   }
 
   @Override
-  public void delResourceListByResource(Long resourceId) {
-    List<Long> userIdList = userRoleRelationDao.getAdminIdList(resourceId);
+  public void delResourceListByResource(Integer resourceId) {
+    List<Integer> userIdList = userRoleRelationDao.getAdminIdList(resourceId);
     if (CollUtil.isNotEmpty(userIdList)) {
       String keyPrefix = redisDatabase + ":" + redisKeyResourceList + ":";
       List<String> keys =
@@ -97,13 +97,13 @@ public class AdminUserCacheServiceImpl implements AdminUserCacheService {
   }
 
   @Override
-  public List<AdminResource> getResourceList(Long userId) {
+  public List<AdminResource> getResourceList(Integer userId) {
     String key = redisDatabase + ":" + redisKeyResourceList + ":" + userId;
     return (List<AdminResource>) redisService.get(key);
   }
 
   @Override
-  public void setResourceList(Long userId, List<AdminResource> resourceList) {
+  public void setResourceList(Integer userId, List<AdminResource> resourceList) {
     String key = redisDatabase + ":" + redisKeyResourceList + ":" + userId;
     redisService.set(key, resourceList, redisExpire);
   }

@@ -143,7 +143,7 @@ public class AdminUserServiceImpl implements AdminUserService {
   }
 
   @Override
-  public AdminUser getItem(Long id) {
+  public AdminUser getItem(Integer id) {
     return userMpService.getById(id);
   }
 
@@ -161,7 +161,7 @@ public class AdminUserServiceImpl implements AdminUserService {
   }
 
   @Override
-  public boolean update(Long id, AdminUser adminUser) {
+  public boolean update(Integer id, AdminUser adminUser) {
     adminUser.setId(id);
     AdminUser rawUser = userMpService.getById(id);
     if (rawUser.getPassword().equals(adminUser.getPassword())) {
@@ -183,7 +183,7 @@ public class AdminUserServiceImpl implements AdminUserService {
   }
 
   @Override
-  public boolean delete(Long id) {
+  public boolean delete(Integer id) {
     userCacheService.delUser(id);
     AdminUser adminUser = new AdminUser();
     adminUser.setId(id);
@@ -194,7 +194,7 @@ public class AdminUserServiceImpl implements AdminUserService {
   }
 
   @Override
-  public boolean updateRole(Long userId, List<Long> roleIds) {
+  public boolean updateRole(Integer userId, List<Integer> roleIds) {
     // 先删除原来的关系
     QueryWrapper<AdminUserRoleRelation> queryWrapper = new QueryWrapper<>();
     queryWrapper.eq("user_id", userId);
@@ -204,7 +204,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     // 建立新关系
     if (!CollectionUtils.isEmpty(roleIds)) {
       List<AdminUserRoleRelation> list = new ArrayList<>();
-      for (Long roleId : roleIds) {
+      for (Integer roleId : roleIds) {
         AdminUserRoleRelation roleRelation = new AdminUserRoleRelation();
         roleRelation.setUserId(userId);
         roleRelation.setRoleId(roleId);
@@ -217,12 +217,12 @@ public class AdminUserServiceImpl implements AdminUserService {
   }
 
   @Override
-  public List<AdminRole> getRoleList(Long userId) {
+  public List<AdminRole> getRoleList(Integer userId) {
     return roleRelationDao.getRoleList(userId);
   }
 
   @Override
-  public List<AdminResource> getResourceList(Long userId) {
+  public List<AdminResource> getResourceList(Integer userId) {
     List<AdminResource> resourceList = userCacheService.getResourceList(userId);
     if (CollUtil.isNotEmpty(resourceList)) {
       return resourceList;
@@ -235,7 +235,7 @@ public class AdminUserServiceImpl implements AdminUserService {
   }
 
   @Override
-  public List<AdminMenu> getMenuList(Long userId) {
+  public List<AdminMenu> getMenuList(Integer userId) {
     return roleRelationDao.getMenuList(userId);
   }
 

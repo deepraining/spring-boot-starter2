@@ -49,7 +49,7 @@ public class AdminResourceCategoryController {
   @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
   @ResponseBody
   public CommonResult<Integer> update(
-      @PathVariable Long id,
+      @PathVariable Integer id,
       @RequestBody @Validated AdminResourceCategory adminResourceCategory,
       BindingResult bindingResult) {
     boolean result = resourceCategoryService.update(id, adminResourceCategory);
@@ -63,7 +63,7 @@ public class AdminResourceCategoryController {
   @ApiOperation("根据ID删除后台资源")
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
   @ResponseBody
-  public CommonResult<Integer> delete(@PathVariable Long id) {
+  public CommonResult<Integer> delete(@PathVariable Integer id) {
     boolean result = resourceCategoryService.delete(id);
     if (result) {
       return CommonResult.success(1);
