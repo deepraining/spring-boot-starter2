@@ -3,7 +3,7 @@ package dr.sbs.common.util;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 
-public class UuidUtil {
+public class SbsIdUtil {
   private static Snowflake snowflake;
 
   public static void init(long workerId, long dataCenterId) {

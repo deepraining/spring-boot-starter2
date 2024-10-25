@@ -1,6 +1,6 @@
 package dr.sbs.front.websocket;
 
-import dr.sbs.front.component.SpringUtils;
+import dr.sbs.front.component.SpringUtil;
 import dr.sbs.front.service.UserService;
 import dr.sbs.mp.entity.FrontUser;
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class ChatWebSocketServer {
     this.userId = userId;
 
     // 事件响应，spring bean 默认不会注入
-    if (userService == null) userService = SpringUtils.getBean(UserService.class);
+    if (userService == null) userService = SpringUtil.getBean(UserService.class);
 
     FrontUser user = userService.getById(userId);
     if (user == null) {

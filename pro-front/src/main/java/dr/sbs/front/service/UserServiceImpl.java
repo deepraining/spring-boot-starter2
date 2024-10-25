@@ -2,7 +2,7 @@ package dr.sbs.front.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import dr.sbs.common.exception.ApiAssert;
-import dr.sbs.common.util.UuidUtil;
+import dr.sbs.common.util.SbsIdUtil;
 import dr.sbs.front.bo.UserInfo;
 import dr.sbs.front.dto.UpdatePasswordParam;
 import dr.sbs.front.dto.UserCreateParam;
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
     // Add the user
     user = new FrontUser();
     BeanUtils.copyProperties(userCreateParam, user);
-    user.setId(UuidUtil.nextId());
+    user.setId(SbsIdUtil.nextId());
     user.setUsername(username);
     user.setPassword(passwordEncoder.encode(userCreateParam.getPassword()));
     userMpService.save(user);

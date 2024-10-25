@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.admin.dao.ArticleDao;
 import dr.sbs.admin.dto.ArticleCreateParam;
 import dr.sbs.admin.dto.ArticleRecord;
-import dr.sbs.common.util.UuidUtil;
+import dr.sbs.common.util.SbsIdUtil;
 import dr.sbs.mp.entity.Article;
 import dr.sbs.mp.service.ArticleMpService;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
   public boolean create(ArticleCreateParam articleCreateParam) {
     Article article = new Article();
     BeanUtils.copyProperties(articleCreateParam, article);
-    article.setId(UuidUtil.nextId());
+    article.setId(SbsIdUtil.nextId());
     article.setFrontUserId(0L);
     return articleMpService.save(article);
   }

@@ -78,4 +78,24 @@ public class CommonResult<T> {
   public static <T> CommonResult<T> forbidden(String message) {
     return new CommonResult<T>(ResultCode.FORBIDDEN.getCode(), message, null);
   }
+
+  /** Token Is Offline */
+  public static <T> CommonResult<T> offline() {
+    return new CommonResult<T>(ResultCode.OFFLINE.getCode(), ResultCode.OFFLINE.getMessage(), null);
+  }
+
+  /** Token Is Offline */
+  public static <T> CommonResult<T> offline(String message) {
+    return new CommonResult<T>(ResultCode.OFFLINE.getCode(), message, null);
+  }
+
+  /** Invalid Request */
+  public static <T> CommonResult<T> invalid() {
+    return new CommonResult<T>(ResultCode.INVALID.getCode(), ResultCode.INVALID.getMessage(), null);
+  }
+
+  /** Invalid Request */
+  public static <T> CommonResult<T> invalid(String message) {
+    return new CommonResult<T>(ResultCode.INVALID.getCode(), message, null);
+  }
 }

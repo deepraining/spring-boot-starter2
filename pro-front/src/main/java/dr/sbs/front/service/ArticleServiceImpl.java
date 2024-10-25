@@ -3,7 +3,7 @@ package dr.sbs.front.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.common.exception.ApiAssert;
-import dr.sbs.common.util.UuidUtil;
+import dr.sbs.common.util.SbsIdUtil;
 import dr.sbs.front.dto.ArticleCreateParam;
 import dr.sbs.mp.entity.Article;
 import dr.sbs.mp.entity.FrontUser;
@@ -56,7 +56,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     Article article = new Article();
     BeanUtils.copyProperties(articleCreateParam, article);
-    article.setId(UuidUtil.nextId());
+    article.setId(SbsIdUtil.nextId());
     article.setFrontUserId(user.getId());
     return articleMpService.save(article);
   }

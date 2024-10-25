@@ -7,15 +7,16 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Component;
 
+/** Spring工具类 */
 @Slf4j
 @Component
-public class SpringUtils implements BeanFactoryPostProcessor {
+public class SpringUtil implements BeanFactoryPostProcessor {
   private static ConfigurableListableBeanFactory beanFactory;
 
   @Override
   public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory)
       throws BeansException {
-    SpringUtils.beanFactory = beanFactory;
+    SpringUtil.beanFactory = beanFactory;
   }
 
   public static ConfigurableListableBeanFactory getBeanFactory() {
@@ -28,7 +29,6 @@ public class SpringUtils implements BeanFactoryPostProcessor {
    * @param name bean名称
    * @return Object 一个以所给名字注册的bean的实例
    */
-  @SuppressWarnings("unchecked")
   public static <T> T getBean(String name) throws BeansException {
     if (getBeanFactory() == null) {
       System.out.println("本地调试Main模式，没有BeanFactory，忽略错误");

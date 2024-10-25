@@ -1,5 +1,6 @@
 package dr.sbs.common.exception;
 
+import dr.sbs.common.CommonResult;
 import dr.sbs.common.IErrorCode;
 
 // 断言处理类，用于抛出各种API异常
@@ -10,5 +11,9 @@ public class ApiAssert {
 
   public static void fail(IErrorCode errorCode) {
     throw new ApiException(errorCode);
+  }
+
+  public static void fail(CommonResult commonResult) {
+    throw new ApiException(commonResult);
   }
 }

@@ -14,27 +14,9 @@ public class SbsCacheKeyUtil {
   public static final String FRONT_DB = "sbsFront";
 
   public static final Integer ONE_MINUTE = 60;
-  public static final Integer TWO_MINUTES = 2 * 60;
-  public static final Integer THREE_MINUTES = 3 * 60;
-  public static final Integer FIVE_MINUTES = 5 * 60;
-  public static final Integer TEN_MINUTES = 10 * 60;
-  public static final Integer TWENTY_MINUTES = 20 * 60;
-  public static final Integer THIRTY_MINUTES = 30 * 60;
   public static final Integer ONE_HOUR = 3600;
-  public static final Integer TWO_HOURS = 2 * 3600;
-  public static final Integer THREE_HOURS = 3 * 3600;
-  public static final Integer SIX_HOURS = 6 * 3600;
-  public static final Integer TWELVE_HOURS = 12 * 3600;
   public static final Integer ONE_DAY = 24 * 3600;
-  public static final Integer TWO_DAYS = 2 * 24 * 3600;
-  public static final Integer THREE_DAYS = 3 * 24 * 3600;
   public static final Integer ONE_WEEK = 7 * 24 * 3600;
-  public static final Integer TWO_WEEKS = 14 * 24 * 3600;
-  public static final Integer ONE_MONTH = 30 * 24 * 3600;
-  public static final Integer TWO_MONTHS = 2 * 30 * 24 * 3600;
-  public static final Integer THREE_MONTHS = 3 * 30 * 24 * 3600;
-  public static final Integer SIX_MONTHS = 6 * 30 * 24 * 3600;
-  public static final Integer ONE_YEAR = 12 * 30 * 24 * 3600;
 
   public static String getCommonDbKey(Object... keys) {
     StringBuilder res = new StringBuilder(COMMON_DB);

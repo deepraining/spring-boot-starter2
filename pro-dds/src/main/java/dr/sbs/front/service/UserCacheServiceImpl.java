@@ -22,7 +22,7 @@ public class UserCacheServiceImpl implements UserCacheService {
   public void setUser(FrontUser frontUser) {
     String cacheKey = SbsCacheKeyUtil.getFrontDbKey(SbsCacheKey.FRONT_USER, frontUser.getId());
 
-    redisService.set(cacheKey, frontUser, SbsCacheKeyUtil.TWO_WEEKS);
+    redisService.set(cacheKey, frontUser, SbsCacheKeyUtil.ONE_WEEK * 2);
   }
 
   @Override
@@ -43,7 +43,7 @@ public class UserCacheServiceImpl implements UserCacheService {
     String cacheKey =
         SbsCacheKeyUtil.getFrontDbKey(SbsCacheKey.FRONT_USER, frontUser.getUsername());
 
-    redisService.set(cacheKey, frontUser, SbsCacheKeyUtil.TWO_WEEKS);
+    redisService.set(cacheKey, frontUser, SbsCacheKeyUtil.ONE_WEEK * 2);
   }
 
   @Override

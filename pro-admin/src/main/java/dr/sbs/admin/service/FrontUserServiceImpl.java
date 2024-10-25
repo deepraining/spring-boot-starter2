@@ -3,7 +3,7 @@ package dr.sbs.admin.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import dr.sbs.admin.dto.FrontUserCreateParam;
-import dr.sbs.common.util.UuidUtil;
+import dr.sbs.common.util.SbsIdUtil;
 import dr.sbs.mp.entity.FrontUser;
 import dr.sbs.mp.service.FrontUserMpService;
 import org.springframework.beans.BeanUtils;
@@ -34,7 +34,7 @@ public class FrontUserServiceImpl implements FrontUserService {
   public boolean create(FrontUserCreateParam frontUserCreateParam) {
     FrontUser frontUser = new FrontUser();
     BeanUtils.copyProperties(frontUserCreateParam, frontUser);
-    frontUser.setId(UuidUtil.nextId());
+    frontUser.setId(SbsIdUtil.nextId());
     return frontUserMpService.save(frontUser);
   }
 
