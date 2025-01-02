@@ -2,15 +2,19 @@
 
 # 构建并本地运行(以pro-front项目为例)
 
-#set -e
-
+# build directory
+build_dir='project'
+# project name
 project_name='pro-front'
-app_name='sbs-front'
+# Group name
 group_name='deepraining'
-server_env='prod'
+# App name
+app_name='sbs-front'
 
 # 最多保存版本数
 max_versions=3
+
+cd "$build_dir"
 
 # 构建Java项目
 rm -rf $project_name/build/libs/*
@@ -41,16 +45,5 @@ if [ $existed_versions -gt $max_versions ]; then
   done
 fi
 
-# 更新正在运行的镜像
-running_app=$(docker ps -a  --format "{{.Names}}" | grep "$app_name")
-if [ ! -z "${running_app}" ]; then
-  docker stop $app_name
-  docker rm $app_name
-fi
-
-docker run --restart=always -p 18001:18001 --name $app_name \
--e SERVER_ENV=$server_env \
--v /data/app/$app_name/logs:/var/logs \
--d $group_name/$app_name:$app_version
-
-echo "$app_name:$app_version is running now"
+cd ../
+sh docker-bin/docker-select.sh
