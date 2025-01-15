@@ -19,12 +19,3 @@ services:
       - /data/docker/redis/data:/data
     ports:
       - 6379:6379
-  sbs-front:
-    image: deepraining/sbs-front:2025.0101.0101
-    container_name: sbs-front
-    restart: always
-    volumes:
-      - /data/app/sbs-front/logs:/var/logs
-      - /etc/localtime:/etc/localtime
-    ports:
-      - 18001:18001

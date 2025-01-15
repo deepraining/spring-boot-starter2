@@ -4,12 +4,20 @@
 # [index]: 选择运行最近的第几个镜像，默认是1
 # 可以用于回滚应用
 
+# Project name
+project_name='pro-front'
 # Group name
 group_name='deepraining'
 # App name
-app_name='sbs-front'
+app_name='sbs-front-prod'
 # Server env (spring.profiles.active)
 server_env='prod'
+# Docker container port
+container_port=18001
+# Docker host port
+host_port=18001
+# Java options
+java_options='-Xms256m -Xmx512m'
 
 index=0
 if [ -z $1 ]; then
@@ -47,10 +55,12 @@ main(){
     docker rm $app_name
   fi
 
-  docker run --restart=always -p 18001:18001 --name $app_name \
+  docker run --restart=always -p $host_port:$container_port --name $app_name \
   -e SERVER_ENV=$server_env \
-  -e JAVA_OPTS='-Xms512m -Xmx512m' \
+  -e JAVA_OPTS="$java_options" \
   -v /data/app/$app_name/logs:/var/logs \
+  -v /data/app/$app_name/html:/var/html \
+  -v /root/.$project_name:/root/.$project_name \
   -d $group_name/$app_name:$app_version
 
   running_status=$(docker ps -a --format "{{.Names}}\\t{{.Status}}" | grep "$app_name" | sed "s/$app_name//g" | sed 's/\t//g')

@@ -4,7 +4,7 @@
 # 运行项目的脚本
 
 # App name
-app_name='sbs-front'
+app_name='sbs-front-prod'
 
 usage() {
   echo "Usage: sh $0 [start|stop|restart|status|version]"

@@ -2,14 +2,16 @@
 
 # 构建并本地运行(以pro-front项目为例)
 
-# build directory
+# Build directory
 build_dir='project'
-# project name
+# Project name
 project_name='pro-front'
 # Group name
 group_name='deepraining'
 # App name
-app_name='sbs-front'
+app_name='sbs-front-prod'
+# Jar name
+jar_name='sbs-front'
 
 # 最多保存版本数
 max_versions=3
@@ -19,14 +21,15 @@ cd "$build_dir"
 # 构建Java项目
 rm -rf $project_name/build/libs/*
 rm -rf $project_name/build/distributions/*
+chmod +x gradlew
 ./gradlew $project_name:build
 
-app_version=$(ls $project_name/build/libs | sed "s/.*${app_name}-//" | sed 's/.jar$//')
+app_version=$(ls $project_name/build/libs | sed "s/.*${jar_name}-//" | sed 's/.jar$//')
 
 echo "$app_name version: $app_version"
 
 # 构建docker镜像
-docker build --build-arg JAR_FILE=$project_name/build/libs/$app_name-$app_version.jar -t $group_name/$app_name:$app_version .
+docker build --build-arg JAR_FILE=$project_name/build/libs/$jar_name-$app_version.jar -t $group_name/$app_name:$app_version .
 
 # 删除多余的镜像
 # 当前存在的版本
