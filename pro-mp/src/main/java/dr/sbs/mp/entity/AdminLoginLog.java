@@ -12,7 +12,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 后台用户登录日志表
+ * 后台用户登录日志
  * </p>
  *
  * @author deepraining
@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("admin_login_log")
-@ApiModel(value = "AdminLoginLog对象", description = "后台用户登录日志表")
+@ApiModel(value = "AdminLoginLog对象", description = "后台用户登录日志")
 public class AdminLoginLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,6 +30,12 @@ public class AdminLoginLog implements Serializable {
     private Integer id;
 
     private Integer userId;
+
+    @ApiModelProperty("用户名")
+    private String username;
+
+    @ApiModelProperty("用户昵称")
+    private String nickname;
 
     @ApiModelProperty("ip地址")
     private String ip;

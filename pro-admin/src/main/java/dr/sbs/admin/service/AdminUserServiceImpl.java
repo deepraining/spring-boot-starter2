@@ -120,10 +120,18 @@ public class AdminUserServiceImpl implements AdminUserService {
     if (user == null) return;
     AdminLoginLog loginLog = new AdminLoginLog();
     loginLog.setUserId(user.getId());
+    loginLog.setUsername(username);
+    loginLog.setNickname(user.getNickname());
     ServletRequestAttributes attributes =
         (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     HttpServletRequest request = attributes.getRequest();
-    loginLog.setIp(request.getRemoteAddr());
+
+    String ip = request.getRemoteAddr();
+    if (!StringUtils.isEmpty(request.getHeader("x-real-ip"))) ip = request.getHeader("x-real-ip");
+    else if (!StringUtils.isEmpty(request.getHeader("X-Real-IP")))
+      ip = request.getHeader("X-Real-IP");
+
+    loginLog.setIp(ip);
     loginLog.setUserAgent(request.getHeader("User-Agent"));
     loginLogMpService.save(loginLog);
   }

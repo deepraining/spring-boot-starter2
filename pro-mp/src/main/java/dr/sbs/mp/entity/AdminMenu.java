@@ -12,7 +12,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 后台菜单表
+ * 后台菜单
  * </p>
  *
  * @author deepraining
@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("admin_menu")
-@ApiModel(value = "AdminMenu对象", description = "后台菜单表")
+@ApiModel(value = "AdminMenu对象", description = "后台菜单")
 public class AdminMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;

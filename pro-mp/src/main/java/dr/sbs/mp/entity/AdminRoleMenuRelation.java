@@ -12,7 +12,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 后台角色菜单关系表
+ * 后台角色菜单关系
  * </p>
  *
  * @author deepraining
@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("admin_role_menu_relation")
-@ApiModel(value = "AdminRoleMenuRelation对象", description = "后台角色菜单关系表")
+@ApiModel(value = "AdminRoleMenuRelation对象", description = "后台角色菜单关系")
 public class AdminRoleMenuRelation implements Serializable {
 
     private static final long serialVersionUID = 1L;

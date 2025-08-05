@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- * 后台资源表 服务类
+ * 后台资源 服务类
  * </p>
  *
  * @author deepraining

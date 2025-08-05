@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 后台角色资源关系表 服务实现类
+ * 后台角色资源关系 服务实现类
  * </p>
  *
  * @author deepraining

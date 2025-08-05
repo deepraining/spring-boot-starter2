@@ -12,7 +12,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 后台资源表
+ * 后台资源
  * </p>
  *
  * @author deepraining
@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("admin_resource")
-@ApiModel(value = "AdminResource对象", description = "后台资源表")
+@ApiModel(value = "AdminResource对象", description = "后台资源")
 public class AdminResource implements Serializable {
 
     private static final long serialVersionUID = 1L;

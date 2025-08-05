@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
- * 后台用户表 Mapper 接口
+ * 后台用户 Mapper 接口
  * </p>
  *
  * @author deepraining

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 后台用户登录日志表 服务实现类
+ * 后台用户登录日志 服务实现类
  * </p>
  *
  * @author deepraining

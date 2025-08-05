@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 资源分类表 服务实现类
+ * 后台资源分类 服务实现类
  * </p>
  *
  * @author deepraining

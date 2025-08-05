@@ -6,6 +6,8 @@
     <resultMap id="BaseResultMap" type="dr.sbs.mp.entity.AdminLoginLog">
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
+        <result column="username" property="username" />
+        <result column="nickname" property="nickname" />
         <result column="ip" property="ip" />
         <result column="user_agent" property="userAgent" />
         <result column="create_time" property="createTime" />
@@ -14,7 +16,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id, ip, user_agent, create_time, update_time
+        id, user_id, username, nickname, ip, user_agent, create_time, update_time
     </sql>
 
 </mapper>

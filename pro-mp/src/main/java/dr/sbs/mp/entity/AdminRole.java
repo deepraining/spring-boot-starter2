@@ -12,7 +12,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 后台用户角色表
+ * 后台用户角色
  * </p>
  *
  * @author deepraining
@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("admin_role")
-@ApiModel(value = "AdminRole对象", description = "后台用户角色表")
+@ApiModel(value = "AdminRole对象", description = "后台用户角色")
 public class AdminRole implements Serializable {
 
     private static final long serialVersionUID = 1L;

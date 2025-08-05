@@ -12,7 +12,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 后台角色资源关系表
+ * 后台角色资源关系
  * </p>
  *
  * @author deepraining
@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("admin_role_resource_relation")
-@ApiModel(value = "AdminRoleResourceRelation对象", description = "后台角色资源关系表")
+@ApiModel(value = "AdminRoleResourceRelation对象", description = "后台角色资源关系")
 public class AdminRoleResourceRelation implements Serializable {
 
     private static final long serialVersionUID = 1L;

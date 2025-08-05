@@ -25,6 +25,8 @@ CREATE TABLE `admin_user` (
 CREATE TABLE `admin_login_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
+  `username` varchar(100) NOT NULL COMMENT '用户名',
+  `nickname` varchar(200) DEFAULT NULL COMMENT '用户昵称',
   `ip` varchar(64) DEFAULT NULL COMMENT 'ip地址',
   `user_agent` text DEFAULT NULL COMMENT '浏览器登录类型',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
