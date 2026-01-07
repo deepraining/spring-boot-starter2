@@ -34,7 +34,7 @@ main(){
     echo "[index] need a positive number"
     return 1
   fi
-  images_count=$(docker images $group_name/$app_name | grep "$group_name/$app_name" | wc -l | sed 's/ //g')
+  images_count=$(docker images | grep "$group_name/$app_name" | wc -l | sed 's/ //g')
   if [ $images_count -eq 0 ]; then
     echo 'No images found'
     return 1;
@@ -44,7 +44,7 @@ main(){
     return 1
   fi
 
-  app_image=$(docker images $group_name/$app_name | grep "$group_name/$app_name" | tail -${index} | head -1 | awk '{print $1}')
+  app_version=$(docker images | grep "$group_name/$app_name" | head -${index} | tail -1 | awk '{print $2}')
 
   # 更新正在运行的镜像
   running_app=$(docker ps -a  --format "{{.Names}}" | grep "$app_name")
@@ -61,14 +61,14 @@ main(){
   -v /data/app/$app_name/logs:/var/logs \
   -v /data/app/$app_name/html:/var/html \
   -v /root/.$project_name:/root/.$project_name \
-  -d $app_image
+  -d $group_name/$app_name:$app_version
 
   running_status=$(docker ps -a --format "{{.Names}}\\t{{.Status}}" | grep "$app_name" | sed "s/$app_name//g" | sed 's/\t//g')
   running_version=$(docker ps -a --format "{{.Names}}\\t{{.Image}}" | grep "$app_name" | awk '{print $2}')
   if [ -z "$running_status" ]; then
     echo "$app_name failed to run in docker."
   else
-    echo "$app_image is running now"
+    echo "$group_name/$app_name:$app_version is running now"
     echo "Running Version: $running_version"
     echo "Running Status: $running_status"
   fi

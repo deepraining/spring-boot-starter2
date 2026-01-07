@@ -38,13 +38,13 @@ existed_versions=$(docker images $group_name/$app_name | grep "$group_name/$app_
 if [ $existed_versions -gt $max_versions ]; then
   # 删除多余的版本
   overflow_versions=$((existed_versions - max_versions))
-  delete_images=$(docker images $group_name/$app_name | grep "$group_name/$app_name" | tail -$overflow_versions | awk '{print $1}')
+  delete_versions=$(docker images $group_name/$app_name | grep "$group_name/$app_name" | tail -$overflow_versions | awk '{print $2}')
   echo "最多保留${max_versions}个版本数据，删除以下多余的版本数据"
-  echo $delete_images
+  echo $delete_versions
 
-  for delete_image in $delete_images
+  for delete_version in $delete_versions
   do
-    docker rmi $delete_image
+    docker rmi $group_name/$app_name:$delete_version
   done
 fi
 
