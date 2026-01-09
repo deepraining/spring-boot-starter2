@@ -1,6 +1,6 @@
 server:
   port: 18001
-  use-forward-headers: true
+  forward-headers-strategy: framework
   servlet:
     session:
       timeout: 86400s
@@ -13,6 +13,12 @@ server:
 spring:
   profiles:
     active: dev
+  main:
+    allow-circular-references: true
+  # 解决Swagger/Knife4j空指针核心配置
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   output:
     ansi:
       enabled: always
@@ -47,7 +53,9 @@ logging:
   level:
     org.springframework.web: ERROR
     dr.sbs: DEBUG
-  file: ./logs
+  file:
+    # 这里用path会多一级spring.log目录出来
+    name: ./logs
 
 app:
   # snowflake workerId and dataCenterId, see "hutool IdUtil.createSnowflake(workerId, dataCenterId)"

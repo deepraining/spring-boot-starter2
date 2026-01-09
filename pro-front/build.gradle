@@ -13,10 +13,10 @@ description = 'Spring Boot Starter Front Application.'
 mainClassName = 'dr.sbs.front.App'
 
 dependencies {
-  implementation 'org.springframework.boot:spring-boot-starter-security:2.1.4.RELEASE'
-  implementation 'org.springframework.session:spring-session-data-redis:2.1.4.RELEASE'
-  implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.1.4.RELEASE'
-  implementation 'org.springframework.boot:spring-boot-starter-websocket:2.1.4.RELEASE'
+  implementation 'org.springframework.boot:spring-boot-starter-security:2.7.18'
+  implementation 'org.springframework.session:spring-session-data-redis:2.7.4'
+  implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.7.18'
+  implementation 'org.springframework.boot:spring-boot-starter-websocket:2.7.18'
 
   // projects
   implementation project(':pro-mp')

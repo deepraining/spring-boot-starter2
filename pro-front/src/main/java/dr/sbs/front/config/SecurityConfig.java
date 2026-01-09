@@ -33,10 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers("/user", "/api/user/**")
         .authenticated()
-        .anyRequest()
-        .permitAll()
         // Every cross origin request will make a OPTIONS request before its real request
         .antMatchers(HttpMethod.OPTIONS)
+        .permitAll()
+        .anyRequest()
         .permitAll()
         .and()
         .csrf()

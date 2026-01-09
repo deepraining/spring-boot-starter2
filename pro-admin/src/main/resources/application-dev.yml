@@ -31,6 +31,7 @@ spring:
     # prefix: file:../../sbs-admin-web/build/
     # run `npm run dev:disk` under project `sbs-admin-web` to generate `dev` folder
     template-loader-path: file:../../sbs-admin-web/dev/
-
-  resources:
-    static-locations: classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/public/, file:../../sbs-admin-web/
+    
+  web:
+    resources:
+      static-locations: classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/public/, file:../../sbs-admin-web/

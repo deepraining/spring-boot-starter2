@@ -15,7 +15,7 @@ public class CommonController implements ErrorController {
   public String handleError(HttpServletRequest request) {
     final Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
 
-    log.error("Error path: [{}], status: [{}]", getErrorPath(), statusCode);
+    log.error("Error path: [{}], status: [{}]", ERROR_PATH, statusCode);
 
     if (statusCode == 500) {
       return "redirect:/500";
@@ -32,10 +32,5 @@ public class CommonController implements ErrorController {
   @GetMapping(value = "/500")
   public String internalError() {
     return "error/500";
-  }
-
-  @Override
-  public String getErrorPath() {
-    return ERROR_PATH;
   }
 }

@@ -30,4 +30,6 @@ logging:
   level:
     org.springframework.web: ERROR
     dr.sbs: INFO
-  file: /var/logs
+  file:
+    # 这里用path会多一级spring.log目录出来
+    name: /var/logs
