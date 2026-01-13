@@ -12,6 +12,10 @@ description = 'Spring Boot Starter Admin Application.'
 
 mainClassName = 'dr.sbs.admin.App'
 
+jar {
+  enabled = false // 不生成 xxx-plain.jar
+}
+
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-security:2.7.18'
   implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.7.18'
